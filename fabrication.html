@@ -640,7 +640,7 @@ const TABS=[
   {id:'calc',label:'🧮 Calculette'},
   {id:'rec',label:'📖 Recettes'},
   {id:'liv',label:'📦 Livraisons'},
-  {id:'mov',label:'🚚 Dispatch'},
+  // {id:'mov',label:'🚚 Dispatch'},  // un seul magasin (Villers) : pas de dispatch entre sites
   {id:'per',label:'🗑️ Pertes'},
   // {id:'sor',label:'⚖️ Pesées'},  // masqué à la demande de Phil (2026-06-15) — section + fonctions conservées, réactivable en décommentant
   {id:'inv',label:'📋 Inventaire'},
@@ -3456,6 +3456,68 @@ async function pinInit(){
 
 // Sans code d'accès : l'appli s'ouvre directement, tous les sites visibles
 async function sansCodeInit(){try{applyLock(null);}catch(e){} document.getElementById('pinov').classList.add('hidden');}
+
+/* ══ MODE INTÉGRÉ (dans Économat Pro) ══════════════════════════
+   Ouvert depuis l'appli Économat (fabrication.html?embed=1) : on masque l'en-tête et
+   les onglets (c'est le menu de l'appli qui navigue) et on reprend les couleurs,
+   la police et le mode clair/sombre de l'appli. */
+const FAB_EMBED=/[?&]embed=1\b/.test(location.search)&&window.parent!==window;
+function fabApplyTheme(){
+  if(!FAB_EMBED)return;
+  let P;try{P=window.parent.document;}catch(e){return;}
+  const cs=window.parent.getComputedStyle(P.documentElement), root=document.documentElement;
+  ['--card','--on-i','--p','--p2','--p3','--i','--i2','--i3','--i4','--g','--g2','--beige','--beige2','--alt','--re','--gr','--bl','--warn','--bd','--bd2','--sh','--font','--ink-rgb']
+    .forEach(v=>{const x=cs.getPropertyValue(v);if(x)root.style.setProperty(v,x.trim());});
+  root.style.colorScheme=cs.colorScheme||'light';
+  if(!document.getElementById('fabEmbedFonts')){
+    const fonts=[];
+    try{for(const sh of P.styleSheets){let rules;try{rules=sh.cssRules;}catch(e){continue;}for(const r of rules){if(r.type===5)fonts.push(r.cssText);}}}catch(e){}
+    const st=document.createElement('style');st.id='fabEmbedFonts';st.textContent=fonts.join('\n');document.head.appendChild(st);
+  }
+}
+if(FAB_EMBED){
+  document.documentElement.classList.add('fab-embed');
+  const st=document.createElement('style');
+  st.textContent=`
+  html.fab-embed{
+    --gold:var(--i);--gold-light:var(--bd2);--gold-dark:var(--i);
+    --grey:var(--i3);--grey-dark:var(--i);--grey-light:var(--i4);
+    --cream:var(--p);--brown:var(--i);--brown-mid:var(--i3);
+    --green:var(--gr);--red:var(--re);--orange:var(--warn);--blue:var(--bl);--white:var(--card);
+  }
+  html.fab-embed body{background:transparent;color:var(--i);padding-bottom:20px}
+  html.fab-embed body, html.fab-embed body *:not(svg):not(path){font-family:var(--font)!important}
+  html.fab-embed header, html.fab-embed nav.tabs, html.fab-embed #siteBar{display:none!important}
+  html.fab-embed .page{padding:0 0 16px;max-width:none}
+  html.fab-embed .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;box-shadow:0 1px 2px var(--sh);padding:16px}
+  html.fab-embed .card h2{font-size:16px;font-weight:700;color:var(--i)}
+  html.fab-embed h1,html.fab-embed h2,html.fab-embed h3{color:var(--i)}
+  html.fab-embed .hint{color:var(--i4)}
+  html.fab-embed label{color:var(--i3);font-weight:600;font-size:12px}
+  html.fab-embed input,html.fab-embed select,html.fab-embed textarea{background:var(--card);border:1px solid var(--bd2);border-radius:8px;font-size:14px;color:var(--i);padding:9px 11px}
+  html.fab-embed input:focus,html.fab-embed select:focus,html.fab-embed textarea:focus{outline:none;border-color:var(--i)}
+  html.fab-embed .btn{background:var(--i);color:var(--on-i);border-radius:8px;font-weight:600;font-size:13px;padding:10px 16px}
+  html.fab-embed .btn.dark{background:var(--i);color:var(--on-i)}
+  html.fab-embed .btn.ghost{background:transparent;border:1px solid var(--bd2);color:var(--i)}
+  html.fab-embed .btn.sm{padding:6px 11px;font-size:12px}
+  html.fab-embed .ico-btn{background:var(--p2);color:var(--i)}
+  html.fab-embed .item{border-bottom-color:var(--bd)}
+  html.fab-embed .modal{background:var(--card);color:var(--i);border-radius:14px}
+  html.fab-embed #toast{background:var(--i);color:var(--on-i)}
+  html.fab-embed .seg button{background:var(--card);color:var(--i);border:1px solid var(--bd2)}
+  html.fab-embed .seg button.on{background:var(--i);color:var(--on-i);border-color:var(--i)}
+  html.fab-embed th{background:var(--p2);color:var(--i)}
+  html.fab-embed .bcard{background:var(--card);border-color:var(--bd)}
+  html.fab-embed .bdetail{background:var(--p2)}
+  html.fab-embed #bilSteps div,html.fab-embed .procede{background:var(--p2)}
+  html.fab-embed .pcell:focus{background:var(--card)}
+  html.fab-embed [style*="#3a2c10"]{color:var(--on-i)!important}
+  html.fab-embed [style*="background:#fff"]{background:var(--card)!important}
+  html.fab-embed [style*="#E8DCC2"]{border-color:var(--bd2)!important}
+  `;
+  document.head.appendChild(st);
+  fabApplyTheme();
+}
 renderTabs();initTabDrag();sansCodeInit().then(loadAll);
 </script>
 </body>

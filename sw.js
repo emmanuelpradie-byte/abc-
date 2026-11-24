@@ -2,7 +2,7 @@
 // Met l'appli en cache pour l'ouvrir hors connexion et instantanément.
 // Les données restent dans le navigateur (IndexedDB) : le service worker n'y touche pas.
 
-const CACHE_NAME = 'economat-23acd936e1';
+const CACHE_NAME = 'economat-53eddc4d1c';
 const LIB_CACHE = 'economat-libs-v1';
 const CORE_ASSETS = ["./", "./index.html", "./manifest.json", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/apple-touch-icon.png"];
 
