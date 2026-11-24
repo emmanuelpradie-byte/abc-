@@ -6,7 +6,7 @@
 - Mise en ligne : GitHub Pages (Settings → Pages → branche `main`, dossier `/`)
 
 ## À régler
-- Code d'accès par défaut : 2412 → le changer (bouton de changement de code dans l'appli).
+- Pas de code d'accès : l'appli s'ouvre directement (tous les sites).
 - Sites prévus par l'appli d'origine : Le Local, Veigné, Tours.
 - Lecture par photo (bons de livraison, planning, recettes) : fonction Supabase `rapid-worker`
   (code dans `supabase/functions/scan-bon-livraison`), à déployer avec une clé `ANTHROPIC_API_KEY`.

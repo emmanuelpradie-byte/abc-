@@ -268,7 +268,7 @@
 </style>
 </head>
 <body>
-<div id="pinov">
+<div id="pinov" class="hidden">
   <div class="plogo">Les Bl<span class="e">é</span>s de Demain</div>
   <div class="psub">Fabrication & suivi bio — code d'accès</div>
   <div id="pinDots"></div>
@@ -280,7 +280,7 @@
   <div id="sync">connexion…</div>
 </header>
 <nav class="tabs" id="fabNav"></nav>
-<div id="siteBar" style="display:flex;align-items:center;gap:8px;padding:6px 12px;background:var(--grey-dark);position:sticky;top:0;z-index:5"><span style="color:#fff;font-size:12px;font-weight:bold">🏠 Magasin</span><div class="seg" id="siteSel" style="flex:1"></div><button onclick="openAide()" title="Aide — guide de l'app" style="background:none;border:1px solid #777;border-radius:8px;color:#fff;padding:5px 9px;font-size:13px;cursor:pointer">❓</button><button onclick="pinLogout()" title="Verrouiller (redemande le code)" style="background:none;border:1px solid #777;border-radius:8px;color:#fff;padding:5px 9px;font-size:13px;cursor:pointer">🔒</button></div>
+<div id="siteBar" style="display:flex;align-items:center;gap:8px;padding:6px 12px;background:var(--grey-dark);position:sticky;top:0;z-index:5"><span style="color:#fff;font-size:12px;font-weight:bold">🏠 Magasin</span><div class="seg" id="siteSel" style="flex:1"></div><button onclick="openAide()" title="Aide — guide de l'app" style="background:none;border:1px solid #777;border-radius:8px;color:#fff;padding:5px 9px;font-size:13px;cursor:pointer">❓</button></div>
 
 <!-- Aide : guide de l'app (métier par métier), chargé depuis aide.html -->
 <div id="aide-overlay" style="display:none;position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.45)">
@@ -599,11 +599,6 @@
     <h2>↕️ Ordre des onglets</h2>
     <p class="hint">Réorganise l'ordre des onglets de l'app avec les flèches (plus simple que le glisser-déposer).</p>
     <div class="btn-row"><button class="btn sm" onclick="navReorderOpen()">↕️ Réorganiser les onglets</button></div>
-  </div>
-  <div class="card">
-    <h2>🔑 Sécurité — code d'accès</h2>
-    <p class="hint">Change le code d'accès de l'app Fabrication (ex : un employé quitte l'entreprise). Les appareils avec l'ancien code seront <b>rebloqués</b> à la prochaine ouverture. Protégé par le code maître.</p>
-    <div class="btn-row"><button class="btn dark sm" onclick="changeFabCode()">Changer le code d'accès Fabrication</button></div>
   </div>
 </section>
 
@@ -3369,7 +3364,8 @@ async function pinLoadCodes(){
     }}catch(e){_codesFail=true;}
 }
 function pinDots(){const d=document.getElementById('pinDots');let h='';for(let i=0;i<4;i++)h+='<span class="dot'+(i<_pin.length?' on':'')+'"></span>';d.innerHTML=h;}
-function pinLogout(){ // efface le code mémorisé et réaffiche l'écran de saisie
+function pinLogout(){ return; // pas de code d'accès
+ // efface le code mémorisé et réaffiche l'écran de saisie
   try{localStorage.removeItem('fabUnlockCode');}catch(e){}
   _lockedSite=null;_pin='';pinDots();
   const e=document.getElementById('pinErr');if(e)e.textContent='';
@@ -3458,7 +3454,9 @@ async function pinInit(){
   }
 }
 
-renderTabs();initTabDrag();pinInit().then(loadAll);
+// Sans code d'accès : l'appli s'ouvre directement, tous les sites visibles
+async function sansCodeInit(){try{applyLock(null);}catch(e){} document.getElementById('pinov').classList.add('hidden');}
+renderTabs();initTabDrag();sansCodeInit().then(loadAll);
 </script>
 </body>
 </html>
