@@ -6,7 +6,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>LBDD — Fabrication & Bio</title>
+<title>Villers — Fabrication & Bio</title>
 <!-- Icône écran d'accueil (logo Les Blés de Demain) -->
 <link rel="manifest" href="fab-manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -269,14 +269,14 @@
 </head>
 <body>
 <div id="pinov" class="hidden">
-  <div class="plogo">Les Bl<span class="e">é</span>s de Demain</div>
+  <div class="plogo">Villers</div>
   <div class="psub">Fabrication & suivi bio — code d'accès</div>
   <div id="pinDots"></div>
   <div id="pinErr"></div>
   <div id="pinpad"></div>
 </div>
 <header>
-  <div><div class="logo">Les Bl<span class="e">é</span>s de Demain</div><div class="sub">Fabrication & suivi bio · <b>v20.327</b></div></div>
+  <div><div class="logo">Villers</div><div class="sub">Fabrication & suivi bio · <b>v20.327</b></div></div>
   <div id="sync">connexion…</div>
 </header>
 <nav class="tabs" id="fabNav"></nav>
@@ -614,7 +614,7 @@
 const SUPABASE_URL='https://gftfvplixdysvuearvif.supabase.co';
 const SUPABASE_KEY='sb_publishable_eYevIlFYgL8bcIFQcbeRRw_7YejK5Gn';
 const supa=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-const SITES=[['local','Le Local'],['veigne','Veigné'],['tours','Tours']];
+const SITES=[['local','Villers']]; // un seul magasin : Villers (identifiant interne « local » conservé)
 let fournisseurs=[],ingredients=[],produits=[];
 let gesCur='ing', fabUnitMode='auto', fabSite='local', fabChecked={};
 let recettesMap={}, pdDay={}; // recettes actives par produit + pains cochés du jour (pid -> {qte,unit,hydra})
@@ -829,7 +829,7 @@ function fillSelectors(){
   // Le bilan bio n'affiche que les matières bio : les dispatchs non bio ne le polluent pas.
   document.getElementById('movIng').innerHTML=ingredients.filter(x=>(x.bio||x.categorie==='farine')&&x.categorie!=='levain').map(x=>'<option value="'+x.id+'">'+x.nom+(x.bio?'':' (non bio)')+'</option>').join('');
   document.getElementById('movFrom').innerHTML=SITES.map(s=>'<option value="'+s[0]+'">'+s[1]+'</option>').join('');
-  document.getElementById('movTo').innerHTML=SITES.map(s=>'<option value="'+s[0]+'"'+(s[0]==='veigne'?' selected':'')+'>'+s[1]+'</option>').join('');
+  document.getElementById('movTo').innerHTML=SITES.map(s=>'<option value="'+s[0]+'"'+(s[0]==='local'?' selected':'')+'>'+s[1]+'</option>').join('');
   document.getElementById('movDate').value=new Date().toISOString().slice(0,10);
   setLivQty();setPerQty();setMovQty();
   lockDefaults();
@@ -1716,7 +1716,7 @@ async function lotExport(){
   const fn=id=>{const f=fournisseurs.find(x=>x.id===id);return f?f.nom:'';};
   const today=new Date().toLocaleDateString('fr-FR');
   const filtre=(site?sn(site):'tous sites')+(d1||d2?' · du '+(d1?fr(d1):'…')+' au '+(d2?fr(d2):'…'):'');
-  let html='<div class="rx-head">Les Blés de Demain — Registre des lots reçus (matières bio)</div>'
+  let html='<div class="rx-head">Villers — Registre des lots reçus (matières bio)</div>'
     +'<div class="rx-meta">'+data.length+' réceptions · '+filtre+' · document généré le '+today+'</div>'
     +'<table class="bx"><thead><tr><th>Date</th><th>Matière</th><th>Lot</th><th>Bon n°</th><th>Quantité (kg)</th><th>Fournisseur</th><th>Site</th></tr></thead><tbody>'
     +(data.length?data.map(l=>'<tr><td>'+fr(l.date_livraison)+'</td><td>'+ingNom(l.ingredient_id)+'</td><td>'+(l.numero_lot||'—')+'</td><td>'+(l.numero_bon||'—')+'</td><td>'+l.quantite_kg+'</td><td>'+fn(l.fournisseur_id)+'</td><td>'+sn(l.site)+'</td></tr>').join('')
@@ -1777,7 +1777,7 @@ function lotSoldeExport(){
   const rows=lotSoldeCompute();
   const fr=d=>{if(!d)return'';const p=String(d).split('-');return p[2]+'/'+p[1]+'/'+p[0];};
   const today=new Date().toLocaleDateString('fr-FR');
-  let html='<div class="rx-head">Les Blés de Demain — Solde par lot (matières bio, méthode FIFO)</div>'
+  let html='<div class="rx-head">Villers — Solde par lot (matières bio, méthode FIFO)</div>'
     +'<div class="rx-meta">'+rows.length+' lots · reçu − consommé − pertes = restant · document généré le '+today+'</div>'
     +'<table class="bx"><thead><tr><th>Date</th><th>Lot</th><th>Farine</th><th>Fournisseur</th><th>Reçu (kg)</th><th>Conso (kg)</th><th>Pertes (kg)</th><th>Restant (kg)</th></tr></thead><tbody>'
     +(rows.length?rows.map(r=>'<tr><td>'+fr(r.date)+'</td><td>'+(r.lot||'—')+'</td><td>'+r.ing+'</td><td>'+(r.four||'')+'</td><td>'+k2(r.recu)+'</td><td>'+k2(r.cons)+'</td><td>'+k2(r.pert)+'</td><td>'+k2(r.rest)+'</td></tr>').join('')
@@ -1793,7 +1793,7 @@ function recExportAll(){
   const items=Object.keys(recettesMap).map(pid=>{
     const rec=recettesMap[pid];const nom=prodNom(pid);return {nom,pid,rec};
   }).sort((a,b)=>recPlanSort(a.pid,b.pid,a.nom,b.nom));
-  let html='<div class="rx-head">Les Blés de Demain — Recettes</div>'
+  let html='<div class="rx-head">Villers — Recettes</div>'
     +'<div class="rx-meta">'+items.length+' recettes · document généré le '+today+'</div>';
   let curSec=null;
   items.forEach(it=>{
@@ -2446,7 +2446,7 @@ function consoExport(){
   const d1=document.getElementById('bilD1').value,d2=document.getElementById('bilD2').value;
   if(!d1||!d2){toast('Choisis une période');return;}
   const fr=d=>{const p=d.split('-');return p[2]+'/'+p[1]+'/'+p[0];};
-  printDoc('<div class="rx-head">Les Blés de Demain — Consommation de farine bio · '+(consoMode==='mois'?'par mois':'par semaine')+'</div>'
+  printDoc('<div class="rx-head">Villers — Consommation de farine bio · '+(consoMode==='mois'?'par mois':'par semaine')+'</div>'
     +'<div class="rx-meta">Période du '+fr(d1)+' au '+fr(d2)+' · produits bio, production validée, farine des levains comprise · document généré le '+new Date().toLocaleDateString('fr-FR')+'</div>'
     +consoTablesHtml(d1,d2),BIL_PRINT_CSS);
 }
@@ -2476,7 +2476,7 @@ function bilExportHtml(site,d1,d2,sansSignature){
   const cpt=rows.filter(r=>r.compte).map(r=>r.compte.date).sort();
   const cptTxt=cpt.length?'comptage physique du '+fr(cpt[cpt.length-1]):'pas de comptage sur la période';
   const cls=r=>r.compte?r.status:(r.status==='bad'?'bad':'');
-  return '<div class="rx-head">Les Blés de Demain — Bilan matière bio · '+nomSite.toUpperCase()+'</div>'
+  return '<div class="rx-head">Villers — Bilan matière bio · '+nomSite.toUpperCase()+'</div>'
     +'<div class="rx-meta">Période du '+fr(d1)+' au '+fr(d2)+' · '+cptTxt+' · document généré le '+new Date().toLocaleDateString('fr-FR')+'</div>'
     +'<table class="bx"><thead><tr><th>Farine bio</th><th>Départ '+bilFr(prevDay(d1))+'</th><th>Entrées</th><th>Sorties</th><th>Devrait rester</th><th>Compté</th><th>Écart</th></tr></thead><tbody>'
     +(rows.map(r=>'<tr><td>'+r.nom+(bilUnite(r.ing)==='L'?' (L)':'')+'</td><td>'+fk(r.dep)+'</td><td>'+fk(r.entrees)+'</td><td>'+fk(r.sorties)+'</td><td'+(r.fin<-0.005?' class="bad"':'')+'>'+fk(r.fin)+'</td><td>'+(r.compte?fk(r.compte.qte)+' <small>('+bilFr(r.compte.date)+')</small>':'—')+'</td><td class="'+cls(r)+'">'+(r.compte?fkS(r.compte.ecart):'—')+'</td></tr>').join('')||'<tr><td colspan="7" style="text-align:center">Aucun mouvement sur cette période.</td></tr>')
@@ -2501,7 +2501,7 @@ function bilExportToutHtml(d1,d2){
   });
   const list=Object.values(agg).sort((a,b)=>a.nom.localeCompare(b.nom,'fr'));
   const cls=a=>{if(!a.nbCompte)return a.fin<-0.005?'bad':'';const sac=bilSacKg(a.ing)||5;return Math.abs(a.ecart)<=sac*a.nbCompte+0.005?'ok':(a.ecart>0?'warn':'bad');};
-  let h='<div class="rx-head">Les Blés de Demain — Bilan matière bio · TOUS SITES</div>'
+  let h='<div class="rx-head">Villers — Bilan matière bio · TOUS SITES</div>'
     +'<div class="rx-meta">Période du '+fr(d1)+' au '+fr(d2)+' · '+SITES.map(s=>s[1]).join(' + ')+' · document généré le '+new Date().toLocaleDateString('fr-FR')+'</div>'
     +'<table class="bx"><thead><tr><th>Farine bio</th><th>Départ '+bilFr(prevDay(d1))+'</th><th>Bons reçus</th><th>Production + pertes</th><th>Devrait rester</th><th>Compté</th><th>Écart</th></tr></thead><tbody>'
     +(list.map(a=>'<tr><td>'+a.nom+(bilUnite(a.ing)==='L'?' (L)':'')+'</td><td>'+fk(a.dep)+'</td><td>'+fk(a.recu)+'</td><td>'+fk(a.conso+a.pertes)+'</td><td'+(a.fin<-0.005?' class="bad"':'')+'>'+fk(a.fin)+'</td>'
@@ -3277,7 +3277,7 @@ function planEditLine(id){
     +'<label>Unité</label><input id="ple_unite" value="'+esc(lg.unite)+'">'
     +'<label>Pâte de base <span style="font-weight:400;color:var(--grey-light)">(pour regrouper au pétrin — ex : Tradition, Viennoise, Essentiel)</span></label><input id="ple_pate" list="plePates" value="'+esc(lg.pate)+'"><datalist id="plePates">'+pates.map(p=>'<option value="'+esc(p)+'">').join('')+'</datalist>'
     +'<label>Kg de farine pour 1 '+esc(lg.unite||'unité')+' <span style="font-weight:400;color:var(--grey-light)">(la calculette multiplie par la quantité du jour)</span></label><input type="text" inputmode="decimal" id="ple_far" value="'+(lg.kg_farine_unite!=null?String(lg.kg_farine_unite).replace('.',','):'')+'">'
-    +(planColPiecesOK?'<label>Pièces par bac <span style="font-weight:400;color:var(--grey-light)">(pour ce magasin — ex : 40 à Veigné, 30 au Local ; vide = la recette décide)</span></label><input type="text" inputmode="numeric" id="ple_pieces" value="'+(lg.pieces_par_bac!=null?lg.pieces_par_bac:'')+'">':'')
+    +(planColPiecesOK?'<label>Pièces par bac <span style="font-weight:400;color:var(--grey-light)">(pour ce magasin — ex : 40 pièces ; vide = la recette décide)</span></label><input type="text" inputmode="numeric" id="ple_pieces" value="'+(lg.pieces_par_bac!=null?lg.pieces_par_bac:'')+'">':'')
     +'<div class="btn-row"><button class="btn" onclick="planSaveLine('+id+')">Enregistrer</button><button class="btn ghost" onclick="closeModal()">Annuler</button></div>';
   document.getElementById('modalBg').classList.add('show');
 }
