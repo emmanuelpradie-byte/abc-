@@ -25,7 +25,7 @@
     <div class="sbi" id="nav-backup" title="Réglages &amp; sauvegarde" onclick="goPage('backup')"><span class="sb-ic">{{ic:settings}}</span><span class="sb-lb">Réglages &amp; sauvegarde</span><span class="sb-bd warn" id="nd-bk">!</span></div>
   </nav>
   <div class="sb-cloud" id="sb-cloud" style="display:none" onclick="goPage('backup')"></div>
-  <button class="sb-new" onclick="openNewBon()" title="Nouveau bon">{{ic:plus}}<span class="sb-nl">Nouveau bon</span></button>
+  <button class="sb-new" onclick="openNewRec()" title="Nouvelle recette">{{ic:plus}}<span class="sb-nl">Nouvelle recette</span></button>
   <div class="sb-date" id="sb-date"></div>
 </aside>
 
@@ -53,7 +53,8 @@
       </div>
       <div id="h-backup"></div>
       <div class="qa">
-        <button class="qa-b pr" onclick="openNewBon()"><span class="qa-ic">{{ic:bon}}</span><span class="qa-t">Nouveau bon</span></button>
+        <button class="qa-b pr" onclick="fabShow('fab')"><span class="qa-ic">🍞</span><span class="qa-t">Production du jour</span></button>
+        <button class="qa-b" onclick="fabShow('demain')"><span class="qa-ic">🌅</span><span class="qa-t">Production de demain</span></button>
         <button class="qa-b" onclick="openNewRec()"><span class="qa-ic">{{ic:book}}</span><span class="qa-t">Nouvelle recette</span></button>
         <button class="qa-b" onclick="goPage('rec-import')"><span class="qa-ic">{{ic:upload}}</span><span class="qa-t">Importer une recette</span></button>
         <button class="qa-b" onclick="goPage('catalogue');openMod('m-addcat')"><span class="qa-ic">{{ic:box}}</span><span class="qa-t">Nouvel ingrédient</span></button>
@@ -66,7 +67,7 @@
         <div class="cw h-card" id="h-fav"></div>
         <div class="cw h-card" id="h-price"></div>
       </div>
-      <div class="sh"><div class="sh-t">Derniers bons</div><div class="sh-m" onclick="goPage('bons')">Voir tout {{ic:arrow-right}}</div></div>
+      <div class="sh" id="h-recents-hd"><div class="sh-t">Derniers bons</div><div class="sh-m" onclick="goPage('bons')">Voir tout {{ic:arrow-right}}</div></div>
       <div class="bgrid" id="h-recents"></div>
     </div>
 

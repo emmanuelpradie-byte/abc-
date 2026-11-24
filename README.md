@@ -3,9 +3,9 @@
 Une seule appli : **Économat Pro** (repris du dépôt `eco-2`) avec **Fabrication & Bio**
 intégrée dedans (copie de l'appli de Phil, avec son accord).
 
-- Économat Pro : bons d'économat, recettes, catalogue, fournisseurs, partage, espace en ligne.
-- Fabrication & Bio : groupe « Fabrication & Bio » dans le menu (Production du jour, Planning,
-  Calculette, Recettes de fabrication, Livraisons, Pertes, Inventaire, Bilan bio, Gérer).
+- Économat Pro : recettes, catalogue d'ingrédients, fournisseurs, partage, messages, espace en ligne (bons d'économat et livre retirés du menu).
+- Fabrication & Bio : groupe « Fabrication & Bio » dans le menu (Production du jour, Production de demain, Planning,
+  Calculette, Recettes de fabrication, Gérer).
   Un seul magasin : **Villers**, sans code d'accès. Les écrans reprennent automatiquement
   les couleurs, la police et le mode sombre de l'appli.
 

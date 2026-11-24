@@ -2216,7 +2216,7 @@ html.lay-mob .ck-r{grid-template-columns:34px minmax(0,1fr) 112px;grid-template-
 html.lay-mob .sel-bar{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
 html.lay-mob #tb-bc{font-size:clamp(15px,4.6vw,18px)}
 </style>
-<script>window.ECO_SERVER={"url": "https://fbwuhejcphsjhhkfkjku.supabase.co", "key": "sb_publishable_QRPVGvql3M2eSfvwkBDTfw_9Pc8fuo0"};window.ECO_BUILD="53eddc4d1c";</script>
+<script>window.ECO_SERVER={"url": "https://fbwuhejcphsjhhkfkjku.supabase.co", "key": "sb_publishable_QRPVGvql3M2eSfvwkBDTfw_9Pc8fuo0"};window.ECO_BUILD="79bb6fb5ed";</script>
 <script>/* Apparence : mode clair / sombre et couleur de l'application.
    Lu de façon synchrone au chargement pour éviter un flash de couleur. */
 (function(){
@@ -2431,7 +2431,7 @@ html.lay-mob #tb-bc{font-size:clamp(15px,4.6vw,18px)}
     <div class="sbi" id="nav-backup" title="Réglages &amp; sauvegarde" onclick="goPage('backup')"><span class="sb-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg></span><span class="sb-lb">Réglages &amp; sauvegarde</span><span class="sb-bd warn" id="nd-bk">!</span></div>
   </nav>
   <div class="sb-cloud" id="sb-cloud" style="display:none" onclick="goPage('backup')"></div>
-  <button class="sb-new" onclick="openNewBon()" title="Nouveau bon"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="sb-nl">Nouveau bon</span></button>
+  <button class="sb-new" onclick="openNewRec()" title="Nouvelle recette"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="sb-nl">Nouvelle recette</span></button>
   <div class="sb-date" id="sb-date"></div>
 </aside>
 
@@ -2459,7 +2459,8 @@ html.lay-mob #tb-bc{font-size:clamp(15px,4.6vw,18px)}
       </div>
       <div id="h-backup"></div>
       <div class="qa">
-        <button class="qa-b pr" onclick="openNewBon()"><span class="qa-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.5" y="4" width="13" height="17" rx="2"/><path d="M9 4.5V3h6v1.5"/><path d="M9 10h6M9 14h6M9 18h3.5"/></svg></span><span class="qa-t">Nouveau bon</span></button>
+        <button class="qa-b pr" onclick="fabShow('fab')"><span class="qa-ic">🍞</span><span class="qa-t">Production du jour</span></button>
+        <button class="qa-b" onclick="fabShow('demain')"><span class="qa-ic">🌅</span><span class="qa-t">Production de demain</span></button>
         <button class="qa-b" onclick="openNewRec()"><span class="qa-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19"/><path d="M9 7.5h6"/></svg></span><span class="qa-t">Nouvelle recette</span></button>
         <button class="qa-b" onclick="goPage('rec-import')"><span class="qa-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V9M7 14l5-5 5 5"/><path d="M4 4.5h16"/></svg></span><span class="qa-t">Importer une recette</span></button>
         <button class="qa-b" onclick="goPage('catalogue');openMod('m-addcat')"><span class="qa-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></span><span class="qa-t">Nouvel ingrédient</span></button>
@@ -2472,7 +2473,7 @@ html.lay-mob #tb-bc{font-size:clamp(15px,4.6vw,18px)}
         <div class="cw h-card" id="h-fav"></div>
         <div class="cw h-card" id="h-price"></div>
       </div>
-      <div class="sh"><div class="sh-t">Derniers bons</div><div class="sh-m" onclick="goPage('bons')">Voir tout <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
+      <div class="sh" id="h-recents-hd"><div class="sh-t">Derniers bons</div><div class="sh-m" onclick="goPage('bons')">Voir tout <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
       <div class="bgrid" id="h-recents"></div>
     </div>
 
@@ -11474,13 +11475,10 @@ function archKeepDeleted(before){
 // (mode intégré, voir le bloc « MODE INTÉGRÉ » en bas de fabrication.html).
 var FAB_SCREENS=[
   ['fab','Production du jour','🍞'],
+  ['demain','Production de demain','🌅'],
   ['plan','Planning','📅'],
   ['calc','Calculette','🧮'],
   ['rec','Recettes de fabrication','📖'],
-  ['liv','Livraisons','📦'],
-  ['per','Pertes','🗑️'],
-  ['inv','Inventaire','📋'],
-  ['bil','Bilan bio','📊'],
   ['ges','Gérer','⚙️']
 ];
 var FAB={screen:'fab', frame:null};
@@ -11491,7 +11489,13 @@ function fabShow(id){
 }
 function fabSync(){
   var w=fabWin();
-  if(w&&typeof w.show==='function'){ try{ w.show(FAB.screen); }catch(e){} }
+  if(w&&typeof w.show==='function'){
+    try{
+      var scr=FAB.screen==='demain'?'fab':FAB.screen;
+      w.show(scr);
+      if(scr==='fab'&&typeof w.fabGoDay==='function'&&FAB.day!==FAB.screen){ FAB.day=FAB.screen; w.fabGoDay(FAB.screen==='demain'?1:0); }
+    }catch(e){}
+  }
   var lbl=(FAB_SCREENS.find(function(s){return s[0]===FAB.screen;})||[])[1]||'Fabrication';
   var bc=document.getElementById('tb-bc'); if(bc&&CUR==='fab'){ bc.style.display='block'; bc.textContent='Fabrication · '+lbl; }
   document.querySelectorAll('[data-fab]').forEach(function(e){ e.classList.toggle('on',CUR==='fab'&&e.getAttribute('data-fab')===FAB.screen); });
@@ -11504,7 +11508,7 @@ function fabMount(){
       }).join('')+'<div class="chip" onclick="fabHelp()">❓ Aide</div></div>'+
       '<iframe id="fab-frame" src="fabrication.html?embed=1" title="Fabrication & Bio"></iframe>';
     FAB.frame=document.getElementById('fab-frame');
-    FAB.frame.addEventListener('load',function(){ setTimeout(fabSync,50); });
+    FAB.frame.addEventListener('load',function(){ FAB.day=''; setTimeout(fabSync,50); setTimeout(fabSync,1500); });
   }
   fabSync();
 }
@@ -11526,6 +11530,11 @@ function fabTheme(){ var w=fabWin(); if(w&&typeof w.fabApplyTheme==='function'){
   ].join('\n');
   document.head.appendChild(st);
 
+  // L'appli se concentre sur les recettes, la production et le catalogue :
+  // bons d'économat et livre de recettes ne sont plus proposés.
+  var st2=document.createElement('style');
+  st2.textContent='#nav-bons,#bn-bons,#nav-livre,#bn-livre,#bk-m-btn,#h-cur,#h-week,#h-recents,#h-recents-hd{display:none!important}';
+  document.head.appendChild(st2);
   var sc=document.getElementById('scroll');
   if(sc&&!document.getElementById('p-fab')){
     var d=document.createElement('div'); d.id='p-fab'; d.className='pg'; d.style.display='none'; sc.appendChild(d);
@@ -11560,7 +11569,8 @@ function fabTheme(){ var w=fabWin(); if(w&&typeof w.fabApplyTheme==='function'){
   setTimeout(function(){
     var _g=goPage;
     goPage=function(p){
-      var r=_g.apply(this,arguments);
+      if(p==='bons'||p==='edit'||p==='livre') p='recettes';
+      var r=_g.call(this,p);
       var pg=document.getElementById('p-fab'); if(pg) pg.style.display=(p==='fab')?'block':'none';
       var bn=document.getElementById('bn-fab'); if(bn) bn.classList.toggle('on',p==='fab');
       if(p==='fab'){

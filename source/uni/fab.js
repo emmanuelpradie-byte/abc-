@@ -5,13 +5,10 @@
 // (mode intégré, voir le bloc « MODE INTÉGRÉ » en bas de fabrication.html).
 var FAB_SCREENS=[
   ['fab','Production du jour','🍞'],
+  ['demain','Production de demain','🌅'],
   ['plan','Planning','📅'],
   ['calc','Calculette','🧮'],
   ['rec','Recettes de fabrication','📖'],
-  ['liv','Livraisons','📦'],
-  ['per','Pertes','🗑️'],
-  ['inv','Inventaire','📋'],
-  ['bil','Bilan bio','📊'],
   ['ges','Gérer','⚙️']
 ];
 var FAB={screen:'fab', frame:null};
@@ -22,7 +19,13 @@ function fabShow(id){
 }
 function fabSync(){
   var w=fabWin();
-  if(w&&typeof w.show==='function'){ try{ w.show(FAB.screen); }catch(e){} }
+  if(w&&typeof w.show==='function'){
+    try{
+      var scr=FAB.screen==='demain'?'fab':FAB.screen;
+      w.show(scr);
+      if(scr==='fab'&&typeof w.fabGoDay==='function'&&FAB.day!==FAB.screen){ FAB.day=FAB.screen; w.fabGoDay(FAB.screen==='demain'?1:0); }
+    }catch(e){}
+  }
   var lbl=(FAB_SCREENS.find(function(s){return s[0]===FAB.screen;})||[])[1]||'Fabrication';
   var bc=document.getElementById('tb-bc'); if(bc&&CUR==='fab'){ bc.style.display='block'; bc.textContent='Fabrication · '+lbl; }
   document.querySelectorAll('[data-fab]').forEach(function(e){ e.classList.toggle('on',CUR==='fab'&&e.getAttribute('data-fab')===FAB.screen); });
@@ -35,7 +38,7 @@ function fabMount(){
       }).join('')+'<div class="chip" onclick="fabHelp()">❓ Aide</div></div>'+
       '<iframe id="fab-frame" src="fabrication.html?embed=1" title="Fabrication & Bio"></iframe>';
     FAB.frame=document.getElementById('fab-frame');
-    FAB.frame.addEventListener('load',function(){ setTimeout(fabSync,50); });
+    FAB.frame.addEventListener('load',function(){ FAB.day=''; setTimeout(fabSync,50); setTimeout(fabSync,1500); });
   }
   fabSync();
 }
@@ -57,6 +60,11 @@ function fabTheme(){ var w=fabWin(); if(w&&typeof w.fabApplyTheme==='function'){
   ].join('\n');
   document.head.appendChild(st);
 
+  // L'appli se concentre sur les recettes, la production et le catalogue :
+  // bons d'économat et livre de recettes ne sont plus proposés.
+  var st2=document.createElement('style');
+  st2.textContent='#nav-bons,#bn-bons,#nav-livre,#bn-livre,#bk-m-btn,#h-cur,#h-week,#h-recents,#h-recents-hd{display:none!important}';
+  document.head.appendChild(st2);
   var sc=document.getElementById('scroll');
   if(sc&&!document.getElementById('p-fab')){
     var d=document.createElement('div'); d.id='p-fab'; d.className='pg'; d.style.display='none'; sc.appendChild(d);
@@ -91,7 +99,8 @@ function fabTheme(){ var w=fabWin(); if(w&&typeof w.fabApplyTheme==='function'){
   setTimeout(function(){
     var _g=goPage;
     goPage=function(p){
-      var r=_g.apply(this,arguments);
+      if(p==='bons'||p==='edit'||p==='livre') p='recettes';
+      var r=_g.call(this,p);
       var pg=document.getElementById('p-fab'); if(pg) pg.style.display=(p==='fab')?'block':'none';
       var bn=document.getElementById('bn-fab'); if(bn) bn.classList.toggle('on',p==='fab');
       if(p==='fab'){

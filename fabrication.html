@@ -3461,6 +3461,10 @@ async function sansCodeInit(){try{applyLock(null);}catch(e){} document.getElemen
    Ouvert depuis l'appli Économat (fabrication.html?embed=1) : on masque l'en-tête et
    les onglets (c'est le menu de l'appli qui navigue) et on reprend les couleurs,
    la police et le mode clair/sombre de l'appli. */
+async function fabGoDay(offset){ // 0 = aujourd'hui, 1 = demain (appelé par le menu de l'appli)
+  const t=new Date();t.setDate(t.getDate()+(offset||0));
+  pdWeekStart=pdISO(pdMonday(t));await pdLoadWeek();await pdSetDate(pdISO(t));
+}
 const FAB_EMBED=/[?&]embed=1\b/.test(location.search)&&window.parent!==window;
 function fabApplyTheme(){
   if(!FAB_EMBED)return;
