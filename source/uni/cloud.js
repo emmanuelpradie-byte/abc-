@@ -532,7 +532,7 @@ function clCardHTML(){
   }
   if(!CLOUD.sess){
     var pi=CLOUD.pendingInvite;
-    h+=(pi?'<div class="cl-inv">'+ic('users')+'<span>'+(pi.by?'<b>'+esc(pi.by)+'</b> t’invite sur Économat Pro. ':'')+'Crée ton compte (ou connecte-toi) : tu auras ton espace perso et accès aux recettes partagées.</span></div>':'<div class="cl-p">Connecte-toi ou crée ton compte.</div>')+
+    h+=(pi?'<div class="cl-inv">'+ic('users')+'<span>'+(pi.by?'<b>'+esc(pi.by)+'</b> t’invite sur Mon Fournil. ':'')+'Crée ton compte (ou connecte-toi) : tu auras ton espace perso et accès aux recettes partagées.</span></div>':'<div class="cl-p">Connecte-toi ou crée ton compte.</div>')+
       '<div class="seg cl-seg"><button class="'+(ui.mode!=='login'?'on':'')+'" onclick="clMode(\'signup\')">Créer un compte</button><button class="'+(ui.mode==='login'?'on':'')+'" onclick="clMode(\'login\')">Se connecter</button></div>'+
       (ui.mode!=='login'?'<div class="field"><div class="fl">Prénom (affiché sur tes recettes partagées)</div><input class="fi" id="cl-name" value="'+esc(loadProfile().name||'')+'" placeholder="Ton prénom"></div>':'')+
       '<div class="field"><div class="fl">Email</div><input class="fi" id="cl-email" type="email" autocomplete="email" autocapitalize="off" value="'+esc(ui.email||'')+'"></div>'+
@@ -589,7 +589,7 @@ function clSaveServer(){
 }
 function clPasteInvite(){
   var o=clParseInvite(document.getElementById('cl-inv').value);
-  if(!o){ toast('Ce n’est pas un lien d’invitation Économat Pro','err'); return; }
+  if(!o){ toast('Ce n’est pas un lien d’invitation Mon Fournil','err'); return; }
   clUseInvite(o); clRedraw();
 }
 function clForgetServer(){ if(!confirm('Oublier ce serveur ?')) return; CLOUD.cfg=null; CLOUD.pendingInvite=null; clSave('v4_cloud_cfg',null); CLOUD.ui={}; clRedraw(); }
@@ -624,7 +624,7 @@ function clAuthDo(mode,email,pw,name){
 function clShareInvite(){
   if(clIsAdmin()&&!(CLOUD.inv&&CLOUD.inv.code)){ clAdminTick().then(function(){ clShareInvite(); }); return; }
   var link=clInviteLink(); if(!link) return;
-  if(navigator.share){ navigator.share({title:'Économat Pro',text:clMyName()+' t’invite sur Économat Pro (recettes partagées)',url:link}).catch(function(){}); return; }
+  if(navigator.share){ navigator.share({title:'Mon Fournil',text:clMyName()+' t’invite sur Mon Fournil (recettes partagées)',url:link}).catch(function(){}); return; }
   clCopy(link).then(function(){ toast('Lien copié : colle-le dans un message','ok'); },function(){ prompt('Copie ce lien :',link); });
 }
 function clCopy(s){

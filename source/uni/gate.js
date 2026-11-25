@@ -26,7 +26,7 @@ function gateRender(force){
   GATE.last=key;
   var keep={}; ['g-name','g-email'].forEach(function(id){ var e=document.getElementById(id); if(e) keep[id]=e.value; });
   g.innerHTML='<div class="gate-art">'+
-      '<div class="gate-brand"><img class="gate-crest" data-crest alt=""><div class="gate-name">Économat Pro</div><div class="gate-sub">Boulangerie · Pâtisserie</div></div>'+
+      '<div class="gate-brand"><img class="mf-v gate-v" src="'+(window.LOGO_V||'')+'" alt="Maison Viennet"><div class="gate-name">Mon Fournil</div><div class="gate-sub">Maison Viennet</div></div>'+
       '<div class="gate-card"><div class="gate-q">Bons d’économat, recettes et fiches techniques, catalogue et fournisseurs : tout ton laboratoire au même endroit.</div>'+
         '<ul class="gate-pts"><li>'+ic('book')+'Recettes avec sous-recettes, coûts et allergènes</li><li>'+ic('bon')+'Bons d’économat en PDF en un geste</li><li>'+ic('users')+'Dossiers de recettes partagés avec ton équipe</li></ul></div>'+
     '</div>'+
@@ -43,12 +43,12 @@ function gateBody(st){
   var pi=CLOUD.pendingInvite;
   if(st==='loading') return gateHead('Connexion','Ouverture de ton espace…')+'<div class="gate-spin"><div class="inv-spin"></div></div>';
   if(st==='server'){
-    if(GATE.step==='invite') return gateHead('Invitation','Rejoindre Économat Pro')+
+    if(GATE.step==='invite') return gateHead('Invitation','Rejoindre Mon Fournil')+
       '<p class="gate-p">Colle le lien d’invitation que tu as reçu par message.</p>'+
       '<input class="gate-in" id="g-inv" placeholder="https://…#rejoindre=…" autocapitalize="off" spellcheck="false">'+
       '<button class="gate-btn" onclick="gateInvite()">'+ic('arrow-right')+' Continuer</button>'+
       '<div class="gate-err" id="g-err"></div><button class="gate-lnk" onclick="GATE.step=\'\';GATE.err=\'\';gateRender(true)">Retour</button>';
-    return gateHead('Première ouverture','Bienvenue sur Économat Pro')+
+    return gateHead('Première ouverture','Bienvenue sur Mon Fournil')+
       '<p class="gate-p">Pour utiliser l’appli, ouvre le <b>lien d’invitation</b> que tu as reçu. Si c’est toi qui installes l’appli pour ton équipe, renseigne l’adresse de ton serveur Supabase.</p>'+
       '<button class="gate-btn" onclick="GATE.step=\'invite\';GATE.err=\'\';gateRender(true)">'+ic('link')+' J’ai reçu une invitation</button>'+
       '<details class="gate-det"'+(GATE.step==='server'?' open':'')+'><summary>Je configure le serveur (1re fois)</summary>'+
@@ -59,7 +59,7 @@ function gateBody(st){
   }
   if(st==='auth'){
     var sign=GATE.mode==='signup';
-    return gateHead(sign?'Créer un compte':'Connexion','Bienvenue sur Économat Pro')+
+    return gateHead(sign?'Créer un compte':'Connexion','Bienvenue sur Mon Fournil')+
       (pi?'<div class="gate-inv">'+ic('users')+'<span>'+(pi.by?'<b>'+esc(pi.by)+'</b> t’invite. ':'Tu as reçu une invitation. ')+'Crée ton compte pour rejoindre l’équipe.</span></div>':'')+
       '<button class="gate-sw" onclick="gateMode(\''+(sign?'login':'signup')+'\')">'+(sign?'J’ai déjà un compte':'Créer un compte')+'</button>'+
       (sign?'<input class="gate-in" id="g-name" placeholder="Prénom" autocomplete="given-name" value="'+esc(loadProfile().name||'')+'">':'')+
@@ -69,7 +69,7 @@ function gateBody(st){
       (sign?'':'<button class="gate-lnk u" onclick="gateForgot()">Mot de passe oublié ?</button>')+
       '<button class="gate-btn" id="g-go" onclick="gateGo()">'+(sign?'Créer mon compte':'Se connecter')+'</button>'+
       '<div class="gate-err" id="g-err"></div>'+
-      '<div class="gate-foot">Chacun a son espace perso : tes recettes, ton catalogue et tes bons ne sont visibles que par toi.'+(CLOUD.cfg&&!CLOUD.cfg.builtin?' <button class="gate-lnk" onclick="gateForget()">Changer de serveur</button>':'')+'</div>';
+      '<div class="gate-foot">Chacun a son espace perso : tes recettes, ton catalogue et ta production ne sont visibles que par toi.'+(CLOUD.cfg&&!CLOUD.cfg.builtin?' <button class="gate-lnk" onclick="gateForget()">Changer de serveur</button>':'')+'</div>';
   }
   if(st==='recovery'){
     return gateHead('Mot de passe oublié','Choisis un nouveau mot de passe')+
@@ -178,7 +178,7 @@ function gateRecSkip(){ gateRecDone(); }
 
 function gateInvite(){
   var o=clParseInvite(document.getElementById('g-inv').value);
-  if(!o){ gateErr('Ce n’est pas un lien d’invitation Économat Pro'); return; }
+  if(!o){ gateErr('Ce n’est pas un lien d’invitation Mon Fournil'); return; }
   clUseInvite(o); GATE.mode='signup'; GATE.step=''; GATE.err=''; gateRender(true);
 }
 function gateServer(){

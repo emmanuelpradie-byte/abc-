@@ -47,6 +47,9 @@ css=_laymob(css)
 body=open('body.html',encoding='utf-8').read()
 body=re.sub(r'\{\{ic:([a-z\-]+)\}\}', lambda m: svg(m.group(1)), body)
 loader=open('loader.js',encoding='utf-8').read()
+LOGO_V=open('logo_v.b64').read().strip()
+SHIM_JS="(function(){ /* Mon Fournil : ses propres données, séparées des autres applis du même site */\n  var P='mf:', ls; try{ ls=window.localStorage; }catch(e){ return; } if(!ls) return; window.__LS0=ls;\n  function keys(){ var o=[]; for(var i=0;i<ls.length;i++){ var k=ls.key(i); if(k&&k.indexOf(P)===0) o.push(k.slice(P.length)); } return o; }\n  var shim={ getItem:function(k){ return ls.getItem(P+k); }, setItem:function(k,v){ ls.setItem(P+k,String(v)); },\n    removeItem:function(k){ ls.removeItem(P+k); }, clear:function(){ keys().forEach(function(k){ ls.removeItem(P+k); }); },\n    key:function(i){ var a=keys(); return i<a.length?a[i]:null; } };\n  Object.defineProperty(shim,'length',{get:function(){ return keys().length; }});\n  try{ Object.defineProperty(window,'localStorage',{configurable:true,get:function(){ return shim; }}); }catch(e){}\n})();"
+body=body.replace('__LOGO_V__','data:image/png;base64,'+LOGO_V)
 import hashlib
 # serveur intégré à chaque version (adresse + clé PUBLIQUE uniquement, jamais la clé secrète)
 SERVER={'url':'','key':''}
@@ -60,13 +63,14 @@ def head(manifest=None, icon=None):
        '<meta name="theme-color" content="#FBF8F3">',
        '<meta name="apple-mobile-web-app-capable" content="yes">','<meta name="mobile-web-app-capable" content="yes">',
        '<meta name="apple-mobile-web-app-status-bar-style" content="default">',
-       '<meta name="apple-mobile-web-app-title" content="Économat">']
+       '<meta name="apple-mobile-web-app-title" content="Mon Fournil">']
     if manifest: h.append('<link rel="manifest" href="%s">'%manifest)
     if icon: h.append('<link rel="apple-touch-icon" href="%s">'%icon)
-    h.append('<title>Économat Pro</title>')
+    h.append('<title>Mon Fournil — Maison Viennet</title>')
+    h.append('<script>'+SHIM_JS+'window.LOGO_V="data:image/png;base64,'+LOGO_V+'";</script>')
     h.append('<style>'+css+'</style>')
     h.append('<script>window.ECO_SERVER='+json.dumps(SERVER)+';window.ECO_BUILD="'+BUILD+'";</script>')   # serveur intégré (rempli par « Télécharger l’appli préconfigurée »)
-    h.append('<script>'+open('theme.js',encoding='utf-8').read().replace('__CDD_LOGO__',open('logo_cdd.b64').read().strip())+'</script>')
+    h.append('<script>'+open('theme.js',encoding='utf-8').read().replace('__CDD_LOGO__','')+'</script>')
     h.append('</head>')
     return '\n'.join(h)
 SWREG='''<script>
@@ -98,17 +102,17 @@ import copy
 sw=open('sw_template.js',encoding='utf-8').read()
 def manifest(prefix, name, short):
     ic=lambda f,s,pu: {"src":prefix+f,"sizes":s,"type":"image/png","purpose":pu}
-    return {"name":name,"short_name":short,"description":"Bons d’économat, recettes, fiches techniques, allergènes et fournisseurs pour la boulangerie",
-      "start_url":"./index.html","scope":"./","display":"standalone","background_color":"#FBF8F3","theme_color":"#FBF8F3",
+    return {"name":name,"short_name":short,"description":"Recettes, production du jour et catalogue d’ingrédients — Maison Viennet",
+      "start_url":"./index.html","scope":"./","display":"standalone","background_color":"#FAF6F0","theme_color":"#FAF6F0",
       "icons":[ic('icon-192.png','192x192','any'),ic('icon-192.png','192x192','maskable'),ic('icon-512.png','512x512','any'),ic('icon-512.png','512x512','maskable'),ic('apple-touch-icon.png','180x180','any')],
       "display_override":["window-controls-overlay","standalone","browser"],"categories":["business","productivity","food"],"lang":"fr"}
 for folder,prefix in [('economat-pro','icons/'),('economat-pwa','icons/'),('pwa-pc','icons/'),('pwa-iphone','')]:
     d=O+folder+'/'
     os.makedirs(d+prefix,exist_ok=True)
     for f in ['icon-192.png','icon-512.png','apple-touch-icon.png']: shutil.copy('icons/'+f,d+prefix+f)
-    json.dump(manifest(prefix,'Économat Pro','Économat'),open(d+'manifest.json','w',encoding='utf-8'),ensure_ascii=False,indent=2)
+    json.dump(manifest(prefix,'Mon Fournil — Maison Viennet','Mon Fournil'),open(d+'manifest.json','w',encoding='utf-8'),ensure_ascii=False,indent=2)
     assets=['./','./index.html','./manifest.json','./'+prefix+'icon-192.png','./'+prefix+'icon-512.png','./'+prefix+'apple-touch-icon.png']
-    open(d+'sw.js','w',encoding='utf-8').write(sw.replace('__ASSETS__',json.dumps(assets)).replace("const CACHE_NAME = 'economat-v3';","const CACHE_NAME = 'economat-"+BUILD+"';"))
+    open(d+'sw.js','w',encoding='utf-8').write(sw.replace('__ASSETS__',json.dumps(assets)).replace("const CACHE_NAME = 'economat-v3';","const CACHE_NAME = 'monfournil-"+BUILD+"';"))
     shutil.copy('INSTALLATION.md',d+'INSTALLATION.md')
     shutil.copy('PARTAGE.md',d+'PARTAGE.md'); shutil.copy('../cloud/supabase-setup.sql',d+'supabase-setup.sql')
     import glob

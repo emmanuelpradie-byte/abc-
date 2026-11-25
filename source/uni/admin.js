@@ -159,7 +159,7 @@ function admThemeCopy(key,invite){
 function admThemeShare(key,invite){
   var L=(themeLocks().filter(function(x){ return x.key===key; })[0])||{n:''};
   admThemeGet(key,invite).then(function(link){ if(!link) return;
-    navigator.share({title:'Économat Pro · '+L.n,text:invite?clMyName()+' t’invite sur Économat Pro ('+L.n+')':'Économat Pro · '+L.n,url:link}).catch(function(){}); });
+    navigator.share({title:'Mon Fournil · '+L.n,text:invite?clMyName()+' t’invite sur Mon Fournil ('+L.n+')':'Mon Fournil · '+L.n,url:link}).catch(function(){}); });
 }
 function admThemeTry(key){
   if(!themeSetLock(key)) return;
@@ -173,8 +173,9 @@ function admShRow(x){
   return '<div class="adm-r"><span onclick="openShared(\''+escJS(x.id)+'\')">'+esc(x.data.name)+'</span><button class="lnk" onclick="admUnshare(\''+escJS(x.id)+'\')">Retirer</button></div>';
 }
 // ── droits par compte : blason, « C », livres ──
-var ADM_PERMS=[['crest','Blason'],['cmark','« C »'],['book','Livres']];
+var ADM_PERMS=[];   // options Blason, « C » et Livres retirées
 function admPermsHTML(u){
+  return '';
   if(u.status!=='active') return '';
   if(u.is_admin) return '<div class="adm-perms"><span class="adm-pall">'+ic('shield')+' Toutes les options (admin)</span></div>';
   var p=u.perms||{};

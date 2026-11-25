@@ -1,9 +1,9 @@
-// Économat Pro — Service Worker
+// Mon Fournil — Service Worker
 // Met l'appli en cache pour l'ouvrir hors connexion et instantanément.
 // Les données restent dans le navigateur (IndexedDB) : le service worker n'y touche pas.
 
 const CACHE_NAME = 'economat-v3';
-const LIB_CACHE = 'economat-libs-v1';
+const LIB_CACHE = 'monfournil-libs-v1';
 const CORE_ASSETS = __ASSETS__;
 
 self.addEventListener('install', function(e){
@@ -13,7 +13,7 @@ self.addEventListener('install', function(e){
 
 self.addEventListener('activate', function(e){
   e.waitUntil(caches.keys().then(function(keys){
-    return Promise.all(keys.filter(function(k){ return k !== CACHE_NAME && k !== LIB_CACHE; }).map(function(k){ return caches.delete(k); }));
+    return Promise.all(keys.filter(function(k){ return k.indexOf('monfournil-')===0 && k !== CACHE_NAME && k !== LIB_CACHE; }).map(function(k){ return caches.delete(k); }));
   }));
   self.clients.claim();
 });

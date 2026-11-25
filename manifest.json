@@ -1,12 +1,12 @@
 {
-  "name": "Économat Pro",
-  "short_name": "Économat",
-  "description": "Bons d’économat, recettes, fiches techniques, allergènes et fournisseurs pour la boulangerie",
+  "name": "Mon Fournil — Maison Viennet",
+  "short_name": "Mon Fournil",
+  "description": "Recettes, production du jour et catalogue d’ingrédients — Maison Viennet",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#FBF8F3",
-  "theme_color": "#FBF8F3",
+  "background_color": "#FAF6F0",
+  "theme_color": "#FAF6F0",
   "icons": [
     {
       "src": "icons/icon-192.png",

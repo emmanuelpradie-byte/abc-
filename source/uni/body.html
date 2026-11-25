@@ -3,9 +3,9 @@
 <div id="shell">
 <aside id="sidebar">
   <div class="sb-logo">
-    <img class="sb-crest" data-crest alt="">
-    <div class="sb-name">Économat Pro</div>
-    <div class="sb-sub">Boulangerie · Pâtisserie</div>
+    <img class="mf-v" src="__LOGO_V__" alt="Maison Viennet">
+    <div class="sb-name">Mon Fournil</div>
+    <div class="sb-sub">Maison Viennet</div>
   </div>
   <button class="sb-tog" id="sb-tog" onclick="toggleSidebar()" title="Réduire le menu (Ctrl+B)" aria-label="Réduire le menu">{{ic:panel}}</button>
   <button class="sb-srch" onclick="openSearch()" title="Rechercher">{{ic:search}}<span>Rechercher…</span><kbd>Ctrl K</kbd></button>
@@ -18,8 +18,6 @@
     <div class="sbi" id="nav-livre" title="Livre de recettes" style="display:none" onclick="goPage('livre')"><span class="sb-ic">{{ic:list}}</span><span class="sb-lb">Livre</span><span class="sb-bd" id="bk-hd-n" style="display:none"></span></div>
     <div class="sb-grp" role="presentation">Autres</div>
     <div class="sbi" id="nav-chat" title="Messages" style="display:none" onclick="goPage('chat')"><span class="sb-ic">{{ic:chat}}</span><span class="sb-lb">Messages</span><span class="sb-bd" id="chat-bd" style="display:none">0</span></div>
-    <div class="sbi" id="nav-partage" title="Partage" onclick="goPage('partage')"><span class="sb-ic">{{ic:users}}</span><span class="sb-lb">Partage</span></div>
-    <div class="sbi" id="nav-fournisseurs" title="Fournisseurs" onclick="goPage('fournisseurs')"><span class="sb-ic">{{ic:truck}}</span><span class="sb-lb">Fournisseurs</span></div>
     <div class="sb-div"></div>
     <div class="sbi" id="nav-admin" title="Administration" style="display:none" onclick="goPage('admin')"><span class="sb-ic">{{ic:shield}}</span><span class="sb-lb">Administration</span><span class="sb-bd warn" id="nd-admin"></span></div>
     <div class="sbi" id="nav-backup" title="Réglages &amp; sauvegarde" onclick="goPage('backup')"><span class="sb-ic">{{ic:settings}}</span><span class="sb-lb">Réglages &amp; sauvegarde</span><span class="sb-bd warn" id="nd-bk">!</span></div>
@@ -349,7 +347,6 @@
     <div class="bni" id="bn-livre" style="display:none" onclick="goPage('livre')"><div class="bni-ic">{{ic:list}}</div><div class="bni-lb">Livre</div></div>
     <div class="bni-sep" aria-hidden="true"></div>
     <div class="bni" id="bn-chat" style="display:none" onclick="goPage('chat')"><div class="bni-ic">{{ic:chat}}</div><div class="bni-lb">Messages</div><div class="bni-bd" id="chat-bd-b">0</div></div>
-    <div class="bni" id="bn-partage" onclick="goPage('partage')"><div class="bni-ic">{{ic:users}}</div><div class="bni-lb">Partage</div></div>
     <div class="bni" id="bn-backup" onclick="goPage('backup')"><div class="bni-ic">{{ic:settings}}</div><div class="bni-lb">Réglages</div><div class="bni-bd warn" id="bnd-bk">!</div></div>
   </nav>
 </div>

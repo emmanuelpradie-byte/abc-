@@ -772,7 +772,7 @@ function shrBase(id,on){
   function deco(id){
     var x=(CLOUD.shared||{})[id]; if(!x) return;
     var by=document.querySelector('#shr-body .shr-by');
-    if(by&&x.base) by.innerHTML=ic('check-circle')+' Recette de base d’<b>Économat Pro</b> · mise à jour le '+new Date(x.updated_at).toLocaleDateString('fr-FR');
+    if(by&&x.base) by.innerHTML=ic('check-circle')+' Recette de base d’<b>Mon Fournil</b> · mise à jour le '+new Date(x.updated_at).toLocaleDateString('fr-FR');
     if(typeof clIsAdmin==='function'&&clIsAdmin()){
       var f=document.getElementById('shr-foot');
       if(f&&x.base) f.insertAdjacentHTML('afterbegin','<button class="btn btn-ghost shr-base-x" onclick="shrBase(\''+id+'\',false)">'+ic('trash')+' Retirer de la base</button>');

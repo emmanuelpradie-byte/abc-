@@ -2,6 +2,7 @@
    Lu de façon synchrone au chargement pour éviter un flash de couleur. */
 (function(){
   var PAL={
+    viennet:{n:'Maison Viennet',h:0,s:45,sty:1,sw:'#381515'},
     blanc:{n:'Épuré blanc',h:0,s:0,sty:1,sw:'#FFFFFF'},
     creme:{n:'Crème & Encre',h:40,s:14,sty:1,sw:'#C2603A'}, sauge2:{n:'Sauge moderne',h:135,s:14,sty:1,sw:'#2F6B4F'},
     ocean:{n:'Océan',h:222,s:48,sty:1,sw:'#3B5BDB'}, terra:{n:'Terracotta lin',h:20,s:50,sty:1,sw:'#C2603A'},
@@ -15,13 +16,13 @@
   };
   var STY={"epure": {"--p":"#FFFFFF","--p2":"#F7F7F6","--p3":"#EDEDEC","--card":"#FFFFFF","--alt":"#F7F7F6","--beige":"#F1F1EF","--beige2":"#E4E4E2","--am":"#F1F1EF","--am2":"#444444","--g2":"#444444","--bd":"#E8E8E6","--bd2":"#D6D6D3","--i":"#111111","--i2":"#2A2A2A","--i3":"#555555","--i4":"#666666","--g":"#111111","--i-h":"#000000","--on-i":"#FFFFFF","--ink-rgb":"17,17,17","--on-rgb":"255,255,255","--sh":"rgba(20,20,30,.06)"}, "creme": {"--p": "#FAFAF7", "--p2": "#F3F2EC", "--p3": "#E4DECB", "--card": "#FFFFFF", "--alt": "#F3F2EC", "--beige": "#EFEBDD", "--beige2": "#E4DECB", "--am": "#EFEBDD", "--am2": "#B4532E", "--g2": "#B4532E", "--bd": "#E7E5DC", "--bd2": "#E7E5DC", "--i": "#1A1A1A", "--i2": "#333333", "--i3": "#5C5A55", "--i4": "#6B6862", "--g": "#1A1A1A", "--i-h": "#C2603A", "--on-i": "#fff", "--ink-rgb": "26,26,26", "--on-rgb": "255,255,255", "--sh": "rgba(20,20,30,.07)"}, "sauge2": {"--p": "#F5F7F3", "--p2": "#ECF0E8", "--p3": "#D2DDC9", "--card": "#FFFFFF", "--alt": "#ECF0E8", "--beige": "#E2EADC", "--beige2": "#D2DDC9", "--am": "#E2EADC", "--am2": "#2F6B4F", "--g2": "#2F6B4F", "--bd": "#DDE4D7", "--bd2": "#DDE4D7", "--i": "#1D2B24", "--i2": "#2F4036", "--i3": "#55665B", "--i4": "#64756A", "--g": "#1D2B24", "--i-h": "#2F6B4F", "--on-i": "#fff", "--ink-rgb": "29,43,36", "--on-rgb": "255,255,255", "--sh": "rgba(20,20,30,.07)"}, "ocean": {"--p": "#F3F6FA", "--p2": "#E9EFF7", "--p3": "#CFDBF0", "--card": "#FFFFFF", "--alt": "#E9EFF7", "--beige": "#E1E9F6", "--beige2": "#CFDBF0", "--am": "#E1E9F6", "--am2": "#3B5BDB", "--g2": "#3B5BDB", "--bd": "#DCE4EF", "--bd2": "#DCE4EF", "--i": "#14213D", "--i2": "#27395E", "--i3": "#4A5B7B", "--i4": "#5A6B8A", "--g": "#14213D", "--i-h": "#3B5BDB", "--on-i": "#fff", "--ink-rgb": "20,33,61", "--on-rgb": "255,255,255", "--sh": "rgba(20,20,30,.07)"}, "terra": {"--p": "#F8F2EB", "--p2": "#F0E7DC", "--p3": "#E7CDB0", "--card": "#FFFDFA", "--alt": "#F0E7DC", "--beige": "#F1DFCB", "--beige2": "#E7CDB0", "--am": "#F1DFCB", "--am2": "#B5522E", "--g2": "#B5522E", "--bd": "#E8DCCB", "--bd2": "#E8DCCB", "--i": "#2B1F1A", "--i2": "#432F27", "--i3": "#6A564C", "--i4": "#76624F", "--g": "#2B1F1A", "--i-h": "#C2603A", "--on-i": "#fff", "--ink-rgb": "43,31,26", "--on-rgb": "255,255,255", "--sh": "rgba(20,20,30,.07)"}, "graphite": {"--p": "#F4F4F3", "--p2": "#EBEBEA", "--p3": "#D8D8D5", "--card": "#FFFFFF", "--alt": "#EBEBEA", "--beige": "#E6E6E4", "--beige2": "#D8D8D5", "--am": "#E6E6E4", "--am2": "#444444", "--g2": "#444444", "--bd": "#DEDEDC", "--bd2": "#DEDEDC", "--i": "#111111", "--i2": "#2A2A2A", "--i3": "#555555", "--i4": "#666666", "--g": "#111111", "--i-h": "#111111", "--on-i": "#fff", "--ink-rgb": "17,17,17", "--on-rgb": "255,255,255", "--sh": "rgba(20,20,30,.07)"}, "poudre": {"--p": "#FBF5F3", "--p2": "#F5EAE7", "--p3": "#EBCFCF", "--card": "#FFFFFF", "--alt": "#F5EAE7", "--beige": "#F4E0E0", "--beige2": "#EBCFCF", "--am": "#F4E0E0", "--am2": "#A83F57", "--g2": "#A83F57", "--bd": "#EBDAD5", "--bd2": "#EBDAD5", "--i": "#2E1F24", "--i2": "#47303A", "--i3": "#6E5560", "--i4": "#7A606B", "--g": "#2E1F24", "--i-h": "#B84A62", "--on-i": "#fff", "--ink-rgb": "46,31,36", "--on-rgb": "255,255,255", "--sh": "rgba(20,20,30,.07)"}, "minuit": {"--p": "#0F1320", "--p2": "#151A2B", "--p3": "#1B2136", "--card": "#161B2D", "--alt": "#1B2136", "--beige": "#242B45", "--beige2": "#2E3757", "--am": "#242B45", "--am2": "#F2B35E", "--g2": "#F2B35E", "--bd": "#252C45", "--bd2": "#323A5C", "--i": "#ECEFF8", "--i2": "#CDD3E6", "--i3": "#9AA3C0", "--i4": "#8089A8", "--g": "#ECEFF8", "--on-i": "#0F1320", "--i-h": "#FFFFFF", "--ink-rgb": "236,239,248", "--on-rgb": "15,19,32", "--sh": "rgba(0,0,0,.4)", "--re": "#EF7D6E", "--gr": "#6CC592", "--gr2": "#6CC592", "--bl": "#8DB4DA", "--warn": "#E2A55E", "--gr-bg": "rgba(108,197,146,.14)", "--gr-bd": "rgba(108,197,146,.32)", "--gr-bg2": "rgba(108,197,146,.09)", "--re-bg": "rgba(239,125,110,.14)", "--re-bd": "rgba(239,125,110,.34)", "--re-bg2": "rgba(239,125,110,.22)", "--warn-bg": "rgba(226,165,94,.12)", "--warn-bd": "rgba(226,165,94,.32)", "--bl-bg": "rgba(141,180,218,.15)"}};
   STY.blanc=STY.epure;
+  STY.viennet={"--p":"#FAF6F0","--p2":"#F3ECE3","--p3":"#E9DFD3","--card":"#FFFFFF","--alt":"#F7F1EA","--beige":"#EFE5DA","--beige2":"#E2D4C5","--am":"#EFE5DA","--am2":"#6B2A2A","--g2":"#6B2A2A","--bd":"#EADFD4","--bd2":"#DACBBB","--i":"#381515","--i2":"#4A2222","--i3":"#6E4E4A","--i4":"#8A706B","--g":"#381515","--i-h":"#5A1F1F","--on-i":"#FFFFFF","--ink-rgb":"56,21,21","--on-rgb":"255,255,255","--sh":"rgba(56,21,21,.07)"};
   var KEYS=['--p','--p2','--p3','--card','--alt','--beige','--beige2','--am','--am2','--g2','--bd','--bd2','--i','--i2','--i3','--i4','--g','--on-i','--i-h','--ink-rgb','--on-rgb','--sh',
     '--re','--gr','--gr2','--bl','--warn','--gr-bg','--gr-bd','--gr-bg2','--re-bg','--re-bd','--re-bg2','--warn-bg','--warn-bd','--bl-bg'];
   function hsl(h,s,l){ return 'hsl('+h+','+(Math.round(s*10)/10)+'%,'+l+'%)'; }
-  function get(){ try{ return JSON.parse(localStorage.getItem('v4_theme'))||{}; }catch(e){ return {}; } }
+  function get(){ var t; try{ t=JSON.parse(localStorage.getItem('v4_theme'))||{}; }catch(e){ t={}; } t.accent='viennet'; t.crest=false; t.cmark=false; return t; }
   // Épuré devient le thème général : passage unique de tout le monde en « Épuré blanc »
   // (les autres couleurs restent au choix dans les Réglages).
-  try{ if(!localStorage.getItem('v4_theme_epure1')){ var _t=get(); _t.accent='blanc'; localStorage.setItem('v4_theme',JSON.stringify(_t)); localStorage.setItem('v4_theme_epure1','1'); } }catch(e){}
   function mq(){ try{ return window.matchMedia('(prefers-color-scheme: dark)'); }catch(e){ return null; } }
   function isDark(m){ if(m==='dark') return true; if(m==='light') return false; var q=mq(); return !!(q&&q.matches); }
   function vars(key,p,dark){
@@ -93,9 +94,9 @@
       k=localStorage.getItem('v4_theme_lock'); var a2=k&&/^epure-([a-z0-9]+)$/.exec(k); if(a2&&epOk(a2[1])){ epureSet(a2[1],true); k='epure'; localStorage.setItem('v4_theme_lock',k); } return LOCKS[k]?k:null;
     }catch(e){ return null; }
   }
-  var LOCK=lockKey();
+  LOCKS={}; var LOCK=null; try{ localStorage.removeItem('v4_theme_lock'); }catch(e){}   // thèmes Compagnons et Épuré retirés
   function apply(t){
-    t=t||get(); var key=PAL[t.accent]?t.accent:'blanc', p=PAL[key], dark=p.dk?true:isDark(t.mode);
+    t=t||get(); var key=PAL[t.accent]?t.accent:'viennet', p=PAL[key], dark=p.dk?true:isDark(t.mode);
     var root=document.documentElement, v=vars(key,p,dark);
     if(LOCK==='epure') epureSync();
     if(LOCK){ dark=!!LOCKS[LOCK].dk; v=LOCKS[LOCK].vars; }
@@ -119,12 +120,12 @@
       return !!(me&&me.status==='active'&&(me.admin||(me.perms&&me.perms[k]===true)));
     }catch(e){ return false; }
   };
-  function crestOn(t){ t=t||get(); return LOCK==='compagnons'||(t.crest===true&&permOk('crest')); }
-  window.themeCmark=function(){ return get().cmark===true&&permOk('cmark'); };
+  function crestOn(t){ return false; }
+  window.themeCmark=function(){ return false; };
   window.themeCrest=function(){ return crestOn(); };
   window.themeCrestKey=function(){ return LOCK?'crest_'+LOCK:'crest'; };
-  window.THEME_PAL=PAL;
-  window.themeNoLogo=function(){ return LOCK!=='compagnons'&&!crestOn(); };
+  window.THEME_PAL={viennet:PAL.viennet};
+  window.themeNoLogo=function(){ return true; };
   window.loadTheme=get;
   window.applyTheme=apply;
   window.themeLock=function(){ return LOCK?{key:LOCK,n:LOCKS[LOCK].n,logo:LOCKS[LOCK].logo,nl:!!LOCKS[LOCK].nl,bon:LOCKS[LOCK].bon,palKey:LOCKS[LOCK].palKey||null,pals:LOCK==='epure'?EORDER.map(function(k){ return {k:k,n:EPALS[k].n,sw:EPALS[k].sw||window.themeSwatch(k,false),on:k===EPAL}; }):null}:null; };
@@ -154,7 +155,7 @@
         var at=document.querySelector('link[rel=apple-touch-icon]'); if(at) at.href=icon(180);
         var ml=document.querySelector('link[rel=manifest]');
         if(ml) ml.href='data:application/manifest+json,'+encodeURIComponent(JSON.stringify({
-          name:'Économat Pro · '+L.n, short_name:'Économat', start_url:url, scope:base, display:'standalone',
+          name:'Mon Fournil · '+L.n, short_name:'Mon Fournil', start_url:url, scope:base, display:'standalone',
           background_color:L.bg, theme_color:L.bg, lang:'fr',
           icons:[{src:icon(192),sizes:'192x192',type:'image/png'},{src:icon(512),sizes:'512x512',type:'image/png'}]}));
       };
