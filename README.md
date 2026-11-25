@@ -1,26 +1,22 @@
 # Économat Pro — Villers
 
-Une seule appli : **Économat Pro** (repris du dépôt `eco-2`) avec **Fabrication & Bio**
-intégrée dedans (copie de l'appli de Phil, avec son accord).
+Appli centrée sur **les recettes, la production du jour / de demain et le catalogue d'ingrédients**.
 
-- Économat Pro : recettes, catalogue d'ingrédients, fournisseurs, partage, messages, espace en ligne (bons d'économat et livre retirés du menu).
-- Fabrication & Bio : groupe « Fabrication & Bio » dans le menu (Production du jour, Production de demain, Planning,
-  Calculette, Recettes de fabrication, Gérer).
-  Un seul magasin : **Villers**, sans code d'accès. Les écrans reprennent automatiquement
-  les couleurs, la police et le mode sombre de l'appli.
+- **Recettes** (Économat Pro, repris du dépôt `eco-2`) avec une partie **Pièces produites** :
+  pièce (ex. baguette 350 g) ou bac divisé (ex. bac de 6 kg en 30 pièces).
+- **Production du jour / de demain** : quantités par pièce ou par bac → pâte, pesées,
+  préparations à faire avant, coût matière, feuille PDF. Code : `source/uni/prodj.js`.
+  Les quantités sont enregistrées dans `v4_prodj` et suivent le compte en ligne.
+- **Planning** : écran repris de Fabrication & Bio (`fabrication.html`, base Supabase « Manu »).
+- **Catalogue** d'ingrédients, **Messages**, **Réglages & sauvegarde**.
 
-## Fichiers
-- `index.html`, `sw.js`, `manifest.json`, `icons/` : l'appli (construite depuis `source/uni/`).
-- `source/uni/fab.js` : le branchement de Fabrication dans le menu de l'appli.
-- `fabrication.html` (+ `aide.html`) : les écrans de Fabrication (mode intégré : `?embed=1`).
-
-## Bases de données (Supabase)
-- Économat Pro : projet `eco-2Economat` (`fbwuhejcphsjhhkfkjku`).
-- Fabrication & Bio : projet `Manu` (`gftfvplixdysvuearvif`). Tables : `supabase/schema/`.
+Retirés du menu : bons d'économat, livre, partage, fournisseurs, et les écrans Fabrication
+autres que le Planning (calculette, gérer, suivi bio, recettes de fabrication).
 
 ## Mettre à jour l'appli
-`python3 source/publier.py` reconstruit `index.html`, `sw.js`, `manifest.json` et `icons/`.
-Ne touche pas à `fabrication.html`.
+`python3 source/publier.py` reconstruit `index.html`, `sw.js`, `manifest.json` et `icons/`
+depuis `source/uni/`. Ne touche pas à `fabrication.html`.
 
-## Mise en ligne
-GitHub Pages : Settings → Pages → branche `main`, dossier `/ (root)`.
+## Bases de données (Supabase)
+- Compte, recettes, catalogue : projet `eco-2Economat` (`fbwuhejcphsjhhkfkjku`).
+- Planning : projet `Manu` (`gftfvplixdysvuearvif`).

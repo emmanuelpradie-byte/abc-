@@ -4,14 +4,9 @@
 // et fabrication.html reprend automatiquement les couleurs et la police de l'appli
 // (mode intégré, voir le bloc « MODE INTÉGRÉ » en bas de fabrication.html).
 var FAB_SCREENS=[
-  ['fab','Production du jour','🍞'],
-  ['demain','Production de demain','🌅'],
-  ['plan','Planning','📅'],
-  ['calc','Calculette','🧮'],
-  ['rec','Recettes de fabrication','📖'],
-  ['ges','Gérer','⚙️']
+  ['plan','Planning','📅']
 ];
-var FAB={screen:'fab', frame:null};
+var FAB={screen:'plan', frame:null};
 function fabWin(){ try{ return FAB.frame&&FAB.frame.contentWindow; }catch(e){ return null; } }
 function fabShow(id){
   FAB.screen=id||FAB.screen;
@@ -63,7 +58,7 @@ function fabTheme(){ var w=fabWin(); if(w&&typeof w.fabApplyTheme==='function'){
   // L'appli se concentre sur les recettes, la production et le catalogue :
   // bons d'économat et livre de recettes ne sont plus proposés.
   var st2=document.createElement('style');
-  st2.textContent='#nav-bons,#bn-bons,#nav-livre,#bn-livre,#bk-m-btn,#h-cur,#h-week,#h-recents,#h-recents-hd{display:none!important}';
+  st2.textContent='#nav-bons,#bn-bons,#nav-livre,#bn-livre,#nav-partage,#bn-partage,#nav-fournisseurs,#bn-fournisseurs,#r-share-card,#bk-m-btn,#h-cur,#h-week,#h-recents,#h-recents-hd{display:none!important}';
   document.head.appendChild(st2);
   var sc=document.getElementById('scroll');
   if(sc&&!document.getElementById('p-fab')){
@@ -90,7 +85,7 @@ function fabTheme(){ var w=fabWin(); if(w&&typeof w.fabApplyTheme==='function'){
   // Barre du bas (téléphone) : un bouton « Fabrication »
   var bcat=document.getElementById('bn-catalogue');
   if(bcat&&bcat.parentNode&&!document.getElementById('bn-fab')){
-    var bb=document.createElement('div'); bb.className='bni'; bb.id='bn-fab'; bb.setAttribute('onclick',"goPage('fab')");
+    var bb=document.createElement('div'); bb.className='bni'; bb.id='bn-fab'; bb.setAttribute('onclick',"prodGo(0)");
     bb.innerHTML='<div class="bni-ic" style="font-size:18px;line-height:1">🌾</div><div class="bni-lb">Fabrication</div>';
     bcat.parentNode.insertBefore(bb,bcat.nextSibling);
   }
@@ -99,7 +94,7 @@ function fabTheme(){ var w=fabWin(); if(w&&typeof w.fabApplyTheme==='function'){
   setTimeout(function(){
     var _g=goPage;
     goPage=function(p){
-      if(p==='bons'||p==='edit'||p==='livre') p='recettes';
+      if(p==='bons'||p==='edit'||p==='livre'||p==='partage'||p==='fournisseurs') p='recettes';
       var r=_g.call(this,p);
       var pg=document.getElementById('p-fab'); if(pg) pg.style.display=(p==='fab')?'block':'none';
       var bn=document.getElementById('bn-fab'); if(bn) bn.classList.toggle('on',p==='fab');

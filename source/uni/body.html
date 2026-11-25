@@ -53,8 +53,8 @@
       </div>
       <div id="h-backup"></div>
       <div class="qa">
-        <button class="qa-b pr" onclick="fabShow('fab')"><span class="qa-ic">🍞</span><span class="qa-t">Production du jour</span></button>
-        <button class="qa-b" onclick="fabShow('demain')"><span class="qa-ic">🌅</span><span class="qa-t">Production de demain</span></button>
+        <button class="qa-b pr" onclick="prodGo(0)"><span class="qa-ic">🍞</span><span class="qa-t">Production du jour</span></button>
+        <button class="qa-b" onclick="prodGo(1)"><span class="qa-ic">🌅</span><span class="qa-t">Production de demain</span></button>
         <button class="qa-b" onclick="openNewRec()"><span class="qa-ic">{{ic:book}}</span><span class="qa-t">Nouvelle recette</span></button>
         <button class="qa-b" onclick="goPage('rec-import')"><span class="qa-ic">{{ic:upload}}</span><span class="qa-t">Importer une recette</span></button>
         <button class="qa-b" onclick="goPage('catalogue');openMod('m-addcat')"><span class="qa-ic">{{ic:box}}</span><span class="qa-t">Nouvel ingrédient</span></button>
@@ -259,6 +259,11 @@
                 <button class="re-big pri" onclick="openMod('m-ring')">{{ic:plus-circle}} Ajouter un ingrédient</button>
                 <button class="re-big" onclick="openMod('m-subrec')">{{ic:download}} Ajouter une sous-recette existante</button>
               </div>
+            </section>
+            <section class="re-card" id="r-fmts-card">
+              <div class="re-card-t">Pièces produites <span class="re-card-a"><button class="btn btn-ghost btn-sm" onclick="pjFmtAdd('piece')">{{ic:plus}} Pièce</button><button class="btn btn-beige btn-sm" onclick="pjFmtAdd('bac')">{{ic:plus}} Bac divisé</button></span></div>
+              <div class="pm" style="margin:-4px 0 10px">Ce que produit cette recette (baguette 350 g, pain 500 g, bac de 6 kg divisé en 30 pièces…). Utilisé par la production du jour.</div>
+              <div id="r-fmts"></div>
             </section>
             <section class="re-card">
               <div class="re-card-t">Procédé / méthode</div>
