@@ -107,22 +107,8 @@ function renderAdmin(){
         '<div class="adm-acts"><button class="btn btn-gold btn-sm" onclick="admRestore(\''+u.id+'\')">'+ic('refresh')+' Rétablir</button></div></div>';
     }).join(''):'<div class="empty" style="padding:14px"><div class="empty-s">Aucun compte supprimé.</div></div>')+'</div>';
   h+=admSec('del','Comptes supprimés',nGone,del,!!q&&gone.length>0);
-  // Partages
-  var rows=sharedList(), by={};
-  rows.forEach(function(x){ var k=x.owner; (by[k]=by[k]||{name:x.owner_name||'—',folders:{},loose:[]}); if(x.data.folder) (by[k].folders[x.data.folder]=by[k].folders[x.data.folder]||[]).push(x); else by[k].loose.push(x); });
-  var shr=rows.length?Object.keys(by).map(function(k){
-    var o=by[k];
-    return '<div class="cw adm-sh"><div class="cw-t">'+ic('user')+' '+esc(o.name)+(k===me?' (toi)':'')+'</div>'+
-      Object.keys(o.folders).sort().map(function(f){ var rs=o.folders[f];
-        return '<div class="adm-f"><div class="adm-fh">'+ic('folder')+'<b>'+esc(f)+'</b><span>'+rs.length+' recette'+(rs.length>1?'s':'')+'</span><button class="btn btn-ghost btn-sm" onclick="admUnshareFolder(\''+k+'\',\''+escJS(f)+'\')">Retirer le dossier</button></div>'+
-          rs.map(admShRow).join('')+'</div>'; }).join('')+
-      (o.loose.length?'<div class="adm-f">'+o.loose.map(admShRow).join('')+'</div>':'')+'</div>';
-  }).join(''):'<div class="empty" style="padding:14px"><div class="empty-s">Rien n’est partagé pour l’instant.</div></div>';
-  shr+='<div class="shr-info" style="margin-top:12px">'+ic('info')+'<span>Retirer un partage le fait disparaître pour tout le monde ; la recette reste dans l’espace de son auteur, qui est prévenu. Les copies déjà faites restent chez ceux qui les ont faites.</span></div>';
-  h+=admSec('shares','Partages',rows.length+' recette'+(rows.length>1?'s':''),shr);
-  var ncp=(ADM.copies||[]).length;
-  h+=admSec('copies',ic('download')+' Qui a copié les partages',ncp?ncp+' copie'+(ncp>1?'s':''):'—',admCopiesHTML(),!!ADM.cq);
-  if(typeof themeLocks==='function') themeLocks().forEach(function(L){ h+=admSec('th-'+L.key,ic('sparkle')+' Thème '+esc(L.n),(typeof themeLock==='function'&&themeLock()&&themeLock().key===L.key)?'actif ici':'lien',admThemeHTML(L)); });
+  // (Partages et « Qui a copié » retirés : Mon Fournil n'a pas de partage)
+  if(false) themeLocks().forEach(function(L){ h+=admSec('th-'+L.key,ic('sparkle')+' Thème '+esc(L.n),(typeof themeLock==='function'&&themeLock()&&themeLock().key===L.key)?'actif ici':'lien',admThemeHTML(L)); });
   w.innerHTML=h;
 }
 // ── Thèmes verrouillés : liens à donner ──

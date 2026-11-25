@@ -228,7 +228,7 @@ function renderProducts(){
       var bac=f.mode==='bac';
       h+='<div class="pp-card"><div class="pp-h"><span class="pj-tag">'+(bac?'Bac divisé':'Pièce')+'</span><input class="fi sm" value="'+esc(f.n||'')+'" placeholder="Nom du produit" aria-label="Nom du produit" onchange="ppSet(\''+r.id+'\',\''+f.id+'\',\'n\',this.value)">'+
         '<button class="re-ib" title="Supprimer" aria-label="Supprimer" onclick="ppDel(\''+r.id+'\',\''+f.id+'\')">'+ic('trash')+'</button></div>'+
-        '<div class="pp-r" onclick="openEditRec(\''+r.id+'\')" title="Ouvrir la recette">'+esc(r.name)+'</div>'+
+        '<div class="pp-r" onclick="openEditRec(\''+r.id+'\');reTab(\'prod\')" title="Ouvrir la recette">'+esc(r.name)+'</div>'+
         '<div class="pj-fe-g"><label><small>'+(bac?'Poids du bac (g)':'Poids de pâte (g)')+'</small><input class="fi sm" type="number" inputmode="decimal" min="0" value="'+(f.w||'')+'" onchange="ppSet(\''+r.id+'\',\''+f.id+'\',\'w\',this.value)"></label>'+
         (bac?'<label><small>Divisé en (pièces)</small><input class="fi sm" type="number" inputmode="numeric" min="0" value="'+(f.pcs||'')+'" onchange="ppSet(\''+r.id+'\',\''+f.id+'\',\'pcs\',this.value)"></label>':'')+
         '<div class="pj-fe-i">'+(bac&&pjN(f.pcs)>0?'→ '+pjKg(fmtPieceKg(f))+' par pièce':'')+'</div></div></div>';

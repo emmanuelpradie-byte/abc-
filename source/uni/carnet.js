@@ -253,6 +253,8 @@ function reTab(t){
   document.getElementById('re-t-prix').classList.toggle('on',t==='prix');
   document.getElementById('re-pane-rec').style.display=t==='rec'?'':'none';
   document.getElementById('re-pane-prix').style.display=t==='prix'?'':'none';
+  var tp=document.getElementById('re-t-prod'); if(tp) tp.classList.toggle('on',t==='prod');
+  var pp=document.getElementById('re-pane-prod'); if(pp) pp.style.display=t==='prod'?'':'none';
   if(t==='prix') renderRePrix();
 }
 function reFold(side,bodyId){

@@ -645,7 +645,7 @@ function themeCardHTML(){
     themeModeRows()+
     '<div class="th-row"><span class="th-lbl">Affichage</span><div class="seg">'+[['auto','Automatique'],['desk','Ordinateur'],['mob','Mobile']].map(function(m){ var cur=(typeof getLayout==='function'?getLayout():'auto'); return '<button class="'+(cur===m[0]?'on':'')+'" onclick="setLayout(\''+m[0]+'\')">'+m[1]+'</button>'; }).join('')+'</div></div>'+
     '<div class="th-lbl" style="margin-bottom:8px">Thème et couleur de l’application</div>'+sw+
-    '<div style="font-size:11.5px;color:var(--i4);margin-top:10px">« Automatique » suit le réglage clair / sombre du téléphone ou de l’ordinateur, et choisit l’affichage selon la taille de l’écran (le bouton '+ic('mobile')+' en haut passe de l’un à l’autre). Les bons et fiches PDF prennent la version claire de la couleur choisie.</div></div>';
+    '<div style="font-size:11.5px;color:var(--i4);margin-top:10px">« Automatique » suit le réglage clair / sombre du téléphone ou de l’ordinateur, et choisit l’affichage selon la taille de l’écran (le bouton '+ic('mobile')+' en haut passe de l’un à l’autre). Les fiches PDF prennent la version claire.</div></div>';
 }
 function themeModeRows(){
   var t=loadTheme(), mode=t.mode||'auto', cr=typeof themeCrest==='function'?themeCrest():true;
@@ -653,7 +653,7 @@ function themeModeRows(){
   var cm=typeof themeCmark==='function'&&themeCmark(), L=typeof themeLock==='function'&&themeLock();
   function yn(k,on){ return '<div class="seg"><button class="'+(on?'on':'')+'" aria-pressed="'+on+'" onclick="setThemeOpt(\''+k+'\',true)">Avec</button><button class="'+(on?'':'on')+'" aria-pressed="'+(!on)+'" onclick="setThemeOpt(\''+k+'\',false)">Sans</button></div>'; }
   return '<div class="th-row"><span class="th-lbl">Mode</span><div class="seg">'+seg+'</div></div>'+
-    (L&&L.logo?'':(permOk('crest')?'<div class="th-row"><span class="th-lbl">Blason</span>'+yn('crest',cr)+'</div>':'')+(permOk('cmark')?'<div class="th-row"><span class="th-lbl">« C »</span>'+yn('cmark',cm)+'</div>':''));
+    '';  // options Blason et « C » retirées (Mon Fournil)
 }
 function setThemeOpt(k,on){ var L=typeof themeLock==='function'&&themeLock(); if(L&&L.logo) return; if(!permOk(k)) return; var t=loadTheme(); t[k]=!!on; saveTheme(t); }
 function setThemeCrest(on){ var L=typeof themeLock==='function'&&themeLock(); if(L&&L.logo) return; var t=loadTheme(); t[typeof themeCrestKey==='function'?themeCrestKey():'crest']=!!on; saveTheme(t); }

@@ -200,7 +200,7 @@
     <div id="p-rec-edit" class="pg" style="display:none;">
       <div class="re-top">
         <button class="re-x" onclick="reClose()" title="Fermer" aria-label="Fermer">{{ic:x}}</button>
-        <div class="re-tabs" role="tablist"><button id="re-t-rec" class="on" onclick="reTab('rec')">Recette</button><button id="re-t-prix" onclick="reTab('prix')">Prix</button></div>
+        <div class="re-tabs" role="tablist"><button id="re-t-rec" class="on" onclick="reTab('rec')">Recette</button><button id="re-t-prix" onclick="reTab('prix')">Prix</button><button id="re-t-prod" onclick="reTab('prod')">Produits</button></div>
         <div class="re-top-r">
           <span class="re-pair"><button class="re-ib" id="re-undo" onclick="reUndo()" title="Annuler (Ctrl+Z)" aria-label="Annuler" disabled>{{ic:undo}}</button><button class="re-ib" id="re-redo" onclick="reRedo()" title="Rétablir (Ctrl+Y)" aria-label="Rétablir" disabled>{{ic:redo}}</button></span>
           <button class="re-ib dsk" onclick="ficheFromEditor('preview')" title="Fiche technique" aria-label="Fiche technique">{{ic:eye}}</button>
@@ -258,17 +258,19 @@
                 <button class="re-big" onclick="openMod('m-subrec')">{{ic:download}} Ajouter une sous-recette existante</button>
               </div>
             </section>
-            <section class="re-card" id="r-fmts-card">
-              <div class="re-card-t">Pièces produites <span class="re-card-a"><button class="btn btn-ghost btn-sm" onclick="pjFmtAdd('piece')">{{ic:plus}} Pièce</button><button class="btn btn-beige btn-sm" onclick="pjFmtAdd('bac')">{{ic:plus}} Bac divisé</button></span></div>
-              <div class="pm" style="margin:-4px 0 10px">Ce que produit cette recette (baguette 350 g, pain 500 g, bac de 6 kg divisé en 30 pièces…). Utilisé par la production du jour.</div>
-              <div id="r-fmts"></div>
-            </section>
             <section class="re-card">
               <div class="re-card-t">Procédé / méthode</div>
               <textarea class="fi re-notes" id="r-notes" placeholder="Pétrissage, pointage, façonnage, cuisson…"></textarea>
             </section>
           </div>
           <div id="re-pane-prix" style="display:none"></div>
+          <div id="re-pane-prod" style="display:none">
+            <section class="re-card" id="r-fmts-card">
+              <div class="re-card-t">Produits de cette recette <span class="re-card-a"><button class="btn btn-ghost btn-sm" onclick="pjFmtAdd('piece')">{{ic:plus}} Pièce</button><button class="btn btn-beige btn-sm" onclick="pjFmtAdd('bac')">{{ic:plus}} Bac divisé</button></span></div>
+              <div class="pm" style="margin:-4px 0 10px">Ce que produit cette recette (baguette 350 g, pain 500 g, bac de 6 kg divisé en 30 pièces…). Utilisé par la production du jour.</div>
+              <div id="r-fmts"></div>
+            </section>
+          </div>
         </main>
         <button class="re-fold r" onclick="reFold('r')" title="Masquer le panneau" aria-label="Masquer le panneau de droite">{{ic:chev-right}}</button>
         <aside class="re-side re-r" id="re-r">

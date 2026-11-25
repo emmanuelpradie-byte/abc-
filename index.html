@@ -2229,7 +2229,7 @@ html.lay-mob .ck-r{grid-template-columns:34px minmax(0,1fr) 112px;grid-template-
 html.lay-mob .sel-bar{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
 html.lay-mob #tb-bc{font-size:clamp(15px,4.6vw,18px)}
 </style>
-<script>window.ECO_SERVER={"url": "https://gftfvplixdysvuearvif.supabase.co", "key": "sb_publishable_eYevIlFYgL8bcIFQcbeRRw_7YejK5Gn"};window.ECO_BUILD="907e265ba1";</script>
+<script>window.ECO_SERVER={"url": "https://gftfvplixdysvuearvif.supabase.co", "key": "sb_publishable_eYevIlFYgL8bcIFQcbeRRw_7YejK5Gn"};window.ECO_BUILD="cf14ec6e75";</script>
 <script>/* Apparence : mode clair / sombre et couleur de l'application.
    Lu de façon synchrone au chargement pour éviter un flash de couleur. */
 (function(){
@@ -2620,7 +2620,7 @@ html.lay-mob #tb-bc{font-size:clamp(15px,4.6vw,18px)}
     <div id="p-rec-edit" class="pg" style="display:none;">
       <div class="re-top">
         <button class="re-x" onclick="reClose()" title="Fermer" aria-label="Fermer"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-        <div class="re-tabs" role="tablist"><button id="re-t-rec" class="on" onclick="reTab('rec')">Recette</button><button id="re-t-prix" onclick="reTab('prix')">Prix</button></div>
+        <div class="re-tabs" role="tablist"><button id="re-t-rec" class="on" onclick="reTab('rec')">Recette</button><button id="re-t-prix" onclick="reTab('prix')">Prix</button><button id="re-t-prod" onclick="reTab('prod')">Produits</button></div>
         <div class="re-top-r">
           <span class="re-pair"><button class="re-ib" id="re-undo" onclick="reUndo()" title="Annuler (Ctrl+Z)" aria-label="Annuler" disabled><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button><button class="re-ib" id="re-redo" onclick="reRedo()" title="Rétablir (Ctrl+Y)" aria-label="Rétablir" disabled><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button></span>
           <button class="re-ib dsk" onclick="ficheFromEditor('preview')" title="Fiche technique" aria-label="Fiche technique"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
@@ -2678,17 +2678,19 @@ html.lay-mob #tb-bc{font-size:clamp(15px,4.6vw,18px)}
                 <button class="re-big" onclick="openMod('m-subrec')"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M4 19.5h16"/></svg> Ajouter une sous-recette existante</button>
               </div>
             </section>
-            <section class="re-card" id="r-fmts-card">
-              <div class="re-card-t">Pièces produites <span class="re-card-a"><button class="btn btn-ghost btn-sm" onclick="pjFmtAdd('piece')"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Pièce</button><button class="btn btn-beige btn-sm" onclick="pjFmtAdd('bac')"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Bac divisé</button></span></div>
-              <div class="pm" style="margin:-4px 0 10px">Ce que produit cette recette (baguette 350 g, pain 500 g, bac de 6 kg divisé en 30 pièces…). Utilisé par la production du jour.</div>
-              <div id="r-fmts"></div>
-            </section>
             <section class="re-card">
               <div class="re-card-t">Procédé / méthode</div>
               <textarea class="fi re-notes" id="r-notes" placeholder="Pétrissage, pointage, façonnage, cuisson…"></textarea>
             </section>
           </div>
           <div id="re-pane-prix" style="display:none"></div>
+          <div id="re-pane-prod" style="display:none">
+            <section class="re-card" id="r-fmts-card">
+              <div class="re-card-t">Produits de cette recette <span class="re-card-a"><button class="btn btn-ghost btn-sm" onclick="pjFmtAdd('piece')"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Pièce</button><button class="btn btn-beige btn-sm" onclick="pjFmtAdd('bac')"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Bac divisé</button></span></div>
+              <div class="pm" style="margin:-4px 0 10px">Ce que produit cette recette (baguette 350 g, pain 500 g, bac de 6 kg divisé en 30 pièces…). Utilisé par la production du jour.</div>
+              <div id="r-fmts"></div>
+            </section>
+          </div>
         </main>
         <button class="re-fold r" onclick="reFold('r')" title="Masquer le panneau" aria-label="Masquer le panneau de droite"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
         <aside class="re-side re-r" id="re-r">
@@ -4948,7 +4950,7 @@ function themeCardHTML(){
     themeModeRows()+
     '<div class="th-row"><span class="th-lbl">Affichage</span><div class="seg">'+[['auto','Automatique'],['desk','Ordinateur'],['mob','Mobile']].map(function(m){ var cur=(typeof getLayout==='function'?getLayout():'auto'); return '<button class="'+(cur===m[0]?'on':'')+'" onclick="setLayout(\''+m[0]+'\')">'+m[1]+'</button>'; }).join('')+'</div></div>'+
     '<div class="th-lbl" style="margin-bottom:8px">Thème et couleur de l’application</div>'+sw+
-    '<div style="font-size:11.5px;color:var(--i4);margin-top:10px">« Automatique » suit le réglage clair / sombre du téléphone ou de l’ordinateur, et choisit l’affichage selon la taille de l’écran (le bouton '+ic('mobile')+' en haut passe de l’un à l’autre). Les bons et fiches PDF prennent la version claire de la couleur choisie.</div></div>';
+    '<div style="font-size:11.5px;color:var(--i4);margin-top:10px">« Automatique » suit le réglage clair / sombre du téléphone ou de l’ordinateur, et choisit l’affichage selon la taille de l’écran (le bouton '+ic('mobile')+' en haut passe de l’un à l’autre). Les fiches PDF prennent la version claire.</div></div>';
 }
 function themeModeRows(){
   var t=loadTheme(), mode=t.mode||'auto', cr=typeof themeCrest==='function'?themeCrest():true;
@@ -4956,7 +4958,7 @@ function themeModeRows(){
   var cm=typeof themeCmark==='function'&&themeCmark(), L=typeof themeLock==='function'&&themeLock();
   function yn(k,on){ return '<div class="seg"><button class="'+(on?'on':'')+'" aria-pressed="'+on+'" onclick="setThemeOpt(\''+k+'\',true)">Avec</button><button class="'+(on?'':'on')+'" aria-pressed="'+(!on)+'" onclick="setThemeOpt(\''+k+'\',false)">Sans</button></div>'; }
   return '<div class="th-row"><span class="th-lbl">Mode</span><div class="seg">'+seg+'</div></div>'+
-    (L&&L.logo?'':(permOk('crest')?'<div class="th-row"><span class="th-lbl">Blason</span>'+yn('crest',cr)+'</div>':'')+(permOk('cmark')?'<div class="th-row"><span class="th-lbl">« C »</span>'+yn('cmark',cm)+'</div>':''));
+    '';  // options Blason et « C » retirées (Mon Fournil)
 }
 function setThemeOpt(k,on){ var L=typeof themeLock==='function'&&themeLock(); if(L&&L.logo) return; if(!permOk(k)) return; var t=loadTheme(); t[k]=!!on; saveTheme(t); }
 function setThemeCrest(on){ var L=typeof themeLock==='function'&&themeLock(); if(L&&L.logo) return; var t=loadTheme(); t[typeof themeCrestKey==='function'?themeCrestKey():'crest']=!!on; saveTheme(t); }
@@ -7513,22 +7515,8 @@ function renderAdmin(){
         '<div class="adm-acts"><button class="btn btn-gold btn-sm" onclick="admRestore(\''+u.id+'\')">'+ic('refresh')+' Rétablir</button></div></div>';
     }).join(''):'<div class="empty" style="padding:14px"><div class="empty-s">Aucun compte supprimé.</div></div>')+'</div>';
   h+=admSec('del','Comptes supprimés',nGone,del,!!q&&gone.length>0);
-  // Partages
-  var rows=sharedList(), by={};
-  rows.forEach(function(x){ var k=x.owner; (by[k]=by[k]||{name:x.owner_name||'—',folders:{},loose:[]}); if(x.data.folder) (by[k].folders[x.data.folder]=by[k].folders[x.data.folder]||[]).push(x); else by[k].loose.push(x); });
-  var shr=rows.length?Object.keys(by).map(function(k){
-    var o=by[k];
-    return '<div class="cw adm-sh"><div class="cw-t">'+ic('user')+' '+esc(o.name)+(k===me?' (toi)':'')+'</div>'+
-      Object.keys(o.folders).sort().map(function(f){ var rs=o.folders[f];
-        return '<div class="adm-f"><div class="adm-fh">'+ic('folder')+'<b>'+esc(f)+'</b><span>'+rs.length+' recette'+(rs.length>1?'s':'')+'</span><button class="btn btn-ghost btn-sm" onclick="admUnshareFolder(\''+k+'\',\''+escJS(f)+'\')">Retirer le dossier</button></div>'+
-          rs.map(admShRow).join('')+'</div>'; }).join('')+
-      (o.loose.length?'<div class="adm-f">'+o.loose.map(admShRow).join('')+'</div>':'')+'</div>';
-  }).join(''):'<div class="empty" style="padding:14px"><div class="empty-s">Rien n’est partagé pour l’instant.</div></div>';
-  shr+='<div class="shr-info" style="margin-top:12px">'+ic('info')+'<span>Retirer un partage le fait disparaître pour tout le monde ; la recette reste dans l’espace de son auteur, qui est prévenu. Les copies déjà faites restent chez ceux qui les ont faites.</span></div>';
-  h+=admSec('shares','Partages',rows.length+' recette'+(rows.length>1?'s':''),shr);
-  var ncp=(ADM.copies||[]).length;
-  h+=admSec('copies',ic('download')+' Qui a copié les partages',ncp?ncp+' copie'+(ncp>1?'s':''):'—',admCopiesHTML(),!!ADM.cq);
-  if(typeof themeLocks==='function') themeLocks().forEach(function(L){ h+=admSec('th-'+L.key,ic('sparkle')+' Thème '+esc(L.n),(typeof themeLock==='function'&&themeLock()&&themeLock().key===L.key)?'actif ici':'lien',admThemeHTML(L)); });
+  // (Partages et « Qui a copié » retirés : Mon Fournil n'a pas de partage)
+  if(false) themeLocks().forEach(function(L){ h+=admSec('th-'+L.key,ic('sparkle')+' Thème '+esc(L.n),(typeof themeLock==='function'&&themeLock()&&themeLock().key===L.key)?'actif ici':'lien',admThemeHTML(L)); });
   w.innerHTML=h;
 }
 // ── Thèmes verrouillés : liens à donner ──
@@ -8229,6 +8217,8 @@ function reTab(t){
   document.getElementById('re-t-prix').classList.toggle('on',t==='prix');
   document.getElementById('re-pane-rec').style.display=t==='rec'?'':'none';
   document.getElementById('re-pane-prix').style.display=t==='prix'?'':'none';
+  var tp=document.getElementById('re-t-prod'); if(tp) tp.classList.toggle('on',t==='prod');
+  var pp=document.getElementById('re-pane-prod'); if(pp) pp.style.display=t==='prod'?'':'none';
   if(t==='prix') renderRePrix();
 }
 function reFold(side,bodyId){
@@ -11748,7 +11738,7 @@ function renderProducts(){
       var bac=f.mode==='bac';
       h+='<div class="pp-card"><div class="pp-h"><span class="pj-tag">'+(bac?'Bac divisé':'Pièce')+'</span><input class="fi sm" value="'+esc(f.n||'')+'" placeholder="Nom du produit" aria-label="Nom du produit" onchange="ppSet(\''+r.id+'\',\''+f.id+'\',\'n\',this.value)">'+
         '<button class="re-ib" title="Supprimer" aria-label="Supprimer" onclick="ppDel(\''+r.id+'\',\''+f.id+'\')">'+ic('trash')+'</button></div>'+
-        '<div class="pp-r" onclick="openEditRec(\''+r.id+'\')" title="Ouvrir la recette">'+esc(r.name)+'</div>'+
+        '<div class="pp-r" onclick="openEditRec(\''+r.id+'\');reTab(\'prod\')" title="Ouvrir la recette">'+esc(r.name)+'</div>'+
         '<div class="pj-fe-g"><label><small>'+(bac?'Poids du bac (g)':'Poids de pâte (g)')+'</small><input class="fi sm" type="number" inputmode="decimal" min="0" value="'+(f.w||'')+'" onchange="ppSet(\''+r.id+'\',\''+f.id+'\',\'w\',this.value)"></label>'+
         (bac?'<label><small>Divisé en (pièces)</small><input class="fi sm" type="number" inputmode="numeric" min="0" value="'+(f.pcs||'')+'" onchange="ppSet(\''+r.id+'\',\''+f.id+'\',\'pcs\',this.value)"></label>':'')+
         '<div class="pj-fe-i">'+(bac&&pjN(f.pcs)>0?'→ '+pjKg(fmtPieceKg(f))+' par pièce':'')+'</div></div></div>';
