@@ -51,8 +51,9 @@
       </div>
       <div id="h-backup"></div>
       <div class="qa">
-        <button class="qa-b pr" onclick="prodGo(0)"><span class="qa-ic">🍞</span><span class="qa-t">Production du jour</span></button>
-        <button class="qa-b" onclick="prodGo(1)"><span class="qa-ic">🌅</span><span class="qa-t">Production de demain</span></button>
+        <button class="qa-b pr" onclick="prodGo(0)"><span class="qa-ic">{{ic:wheat}}</span><span class="qa-t">Production du jour</span></button>
+        <button class="qa-b" onclick="prodGo(1)"><span class="qa-ic">{{ic:clock}}</span><span class="qa-t">Production de demain</span></button>
+        <button class="qa-b" onclick="PJ.week='';goPage('plan')"><span class="qa-ic">{{ic:calendar}}</span><span class="qa-t">Production semaine</span></button>
         <button class="qa-b" onclick="openNewRec()"><span class="qa-ic">{{ic:book}}</span><span class="qa-t">Nouvelle recette</span></button>
         <button class="qa-b" onclick="goPage('rec-import')"><span class="qa-ic">{{ic:upload}}</span><span class="qa-t">Importer une recette</span></button>
         <button class="qa-b" onclick="goPage('catalogue');openMod('m-addcat')"><span class="qa-ic">{{ic:box}}</span><span class="qa-t">Nouvel ingrédient</span></button>
@@ -214,16 +215,18 @@
             <div class="re-box">
               <div class="re-kv"><span>Poids total</span><b id="r-w">—</b></div>
               <div class="re-kv"><span>Coût matière TTC</span><b id="r-c">—</b></div>
+              <div style="display:none">
               <div class="re-lb">Multiplicateur</div>
               <div class="re-inl"><input class="fi" type="number" inputmode="decimal" id="re-mult" aria-label="Multiplicateur" value="1" min="0" step="0.1"><button class="btn btn-beige btn-sm" onclick="reMultiply()">Multiplier</button></div>
               <div class="re-lb">Ajuster au poids (kg)</div>
               <div class="re-inl"><input class="fi" type="number" inputmode="decimal" id="re-target" placeholder="—" min="0" step="0.01"><button class="btn btn-beige btn-sm" onclick="reScaleTo()">Ajuster</button></div>
+              </div>
             </div>
-            <div class="re-box">
+            <div class="re-box" style="display:none">
               <div class="re-lb">Nombre de pièces</div>
               <div class="re-inl"><input class="fi" type="number" inputmode="numeric" id="re-pcs" placeholder="—" min="0" step="1" oninput="reSetPcs(this.value)"><span class="re-hint" id="re-pcs-w"></span></div>
             </div>
-            <div class="re-box">
+            <div class="re-box" style="display:none">
               <div class="re-lb">Durée</div>
               <div class="re-inl"><input class="fi" type="number" inputmode="numeric" id="re-time" placeholder="À définir" min="0" step="1" oninput="reSetTime()"><select class="fi" id="re-time-u" aria-label="Unité de durée" onchange="reSetTime()"><option value="1">minute</option><option value="60">heure</option></select></div>
             </div>
@@ -265,6 +268,9 @@
           </div>
           <div id="re-pane-prix" style="display:none"></div>
           <div id="re-pane-prod" style="display:none">
+            <section class="re-card">
+              <label class="pj-chk pj-opt"><input type="checkbox" id="r-inprod" onchange="pjInProdEd(this.checked)"><span class="pj-box"></span><span class="pj-rn">Afficher dans la production du jour<small>La recette apparaît dans la production du jour, de demain et dans le tableau de la semaine (en kg de farine).</small></span></label>
+            </section>
             <section class="re-card" id="r-fmts-card">
               <div class="re-card-t">Produits de cette recette <span class="re-card-a"><button class="btn btn-ghost btn-sm" onclick="pjFmtAdd('piece')">{{ic:plus}} Pièce</button><button class="btn btn-beige btn-sm" onclick="pjFmtAdd('bac')">{{ic:plus}} Bac divisé</button></span></div>
               <div class="pm" style="margin:-4px 0 10px">Ce que produit cette recette (baguette 350 g, pain 500 g, bac de 6 kg divisé en 30 pièces…). Utilisé par la production du jour.</div>
