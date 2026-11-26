@@ -1,1 +1,48 @@
+# Fabrique l'installateur Windows de Mon Fournil (.exe) et le publie dans « Releases ».
+# Se lance tout seul quand le dossier src-tauri change, ou à la main :
+# onglet Actions → « Installateur Windows » → Run workflow.
+name: Installateur Windows
 
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src-tauri/**'
+      - '.github/workflows/build-windows.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Construire l'installateur
+        working-directory: src-tauri
+        run: npx --yes @tauri-apps/cli@2 build
+
+      - name: Publier dans Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: windows-${{ github.run_number }}
+          name: Mon Fournil pour Windows (n° ${{ github.run_number }})
+          make_latest: true
+          body: |
+            Télécharge **Mon Fournil_…_x64-setup.exe** ci-dessous, puis lance-le.
+            Au premier lancement, si Windows affiche « Windows a protégé votre ordinateur » :
+            clique sur « Informations complémentaires » puis « Exécuter quand même ».
+            L'appli ouvre la version en ligne : elle est toujours à jour.
+          files: src-tauri/target/release/bundle/nsis/*.exe
